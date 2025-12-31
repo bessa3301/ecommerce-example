@@ -3,18 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    public function show(Event $event)
+    public function show()
     {
-        return Inertia::render('Home', [
-            'event' => $event->only(
-                'id',
-                'title',
-                'start_date',
-                'description',
-            ),
-        ]);
+        return Inertia::render('Home');
     }
 }
