@@ -1,7 +1,8 @@
 <script setup>
-import Layout from './Layout'
+import Layout from '../Layout/Layout.vue'
 import { Head } from '@inertiajs/vue3'
 </script>
+
 
 <template>
     <Layout>
