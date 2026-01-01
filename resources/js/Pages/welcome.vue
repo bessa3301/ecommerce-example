@@ -1,15 +1,17 @@
 <script setup>
 import Layout from './Layout'
 import { Head } from '@inertiajs/vue3'
-
-defineProps({ user: Object })
 </script>
 
 <template>
     <Layout>
-
         <Head title="Welcome" />
-        <h1>Welcome</h1>
-        <p>Hello {{ user.name }}, welcome to your first Inertia app!</p>
+        
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome</h1>
+                <p class="text-lg text-gray-600">Welcome to the E-commerce Demo Application</p>
+            </div>
+        </div>
     </Layout>
 </template>
