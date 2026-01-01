@@ -57,16 +57,16 @@ function handleImageError() {
                     <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
                         <Link
                             v-if="$page.props.auth.user"
-                            :href="route('dashboard')"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                            :href="route('products.index')"
+                            class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white ring-1 ring-transparent transition hover:bg-gray-800 focus:outline-none focus-visible:ring-[#FF2D20]"
                         >
-                            Dashboard
+                            Browse Products
                         </Link>
 
                         <template v-else>
                             <Link
                                 :href="route('login')"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                class="rounded-md px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-transparent transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-[#FF2D20]"
                             >
                                 Log in
                             </Link>
@@ -74,7 +74,7 @@ function handleImageError() {
                             <Link
                                 v-if="canRegister"
                                 :href="route('register')"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white ring-1 ring-transparent transition hover:bg-gray-800 focus:outline-none focus-visible:ring-[#FF2D20]"
                             >
                                 Register
                             </Link>
@@ -378,7 +378,15 @@ function handleImageError() {
                 <footer
                     class="py-16 text-center text-sm text-black dark:text-white/70"
                 >
-                    Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
+                    <div class="mb-4">
+                        <Link
+                            :href="route('products.index')"
+                            class="inline-block rounded-md bg-gray-900 px-6 py-3 text-base font-medium text-white transition hover:bg-gray-800"
+                        >
+                            Browse Products
+                        </Link>
+                    </div>
+                    <p>Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})</p>
                 </footer>
             </div>
         </div>

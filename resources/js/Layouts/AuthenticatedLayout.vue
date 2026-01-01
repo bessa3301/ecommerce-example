@@ -46,6 +46,13 @@ const showingNavigationDropdown = ref(false);
                                     Cart
                                 </NavLink>
                                 <NavLink
+                                    v-if="$page.props.auth.user?.is_admin"
+                                    :href="route('admin.dashboard')"
+                                    :active="route().current('admin.*')"
+                                >
+                                    Admin
+                                </NavLink>
+                                <NavLink
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
@@ -163,6 +170,13 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('cart.index')"
                         >
                             Cart
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.user?.is_admin"
+                            :href="route('admin.dashboard')"
+                            :active="route().current('admin.*')"
+                        >
+                            Admin
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('dashboard')"
