@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 
@@ -23,6 +23,18 @@ const formatPrice = (price) => {
 
 const isLowStock = (stock) => {
     return stock <= 10;
+};
+
+const addToCart = (productId) => {
+    router.post(route('cart.store'), {
+        product_id: productId,
+        quantity: 1,
+    }, {
+        preserveScroll: true,
+        onSuccess: () => {
+            // Optionally show a success message
+        },
+    });
 };
 </script>
 
@@ -117,6 +129,7 @@ const isLowStock = (stock) => {
                             </div>
                             <button
                                 v-if="$page.props.auth.user"
+                                @click="addToCart(product.id)"
                                 class="mt-4 w-full rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
                                 :disabled="product.stock_quantity === 0"
                             >
