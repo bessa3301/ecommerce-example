@@ -48,7 +48,7 @@ const submit = () => {
                                 />
                                 <div
                                     v-if="form.errors.name"
-                                    class="text-sm text-red-600"
+                                    class="text-sm text-red-400"
                                 >
                                     {{ form.errors.name }}
                                 </div>
@@ -67,7 +67,7 @@ const submit = () => {
                                 />
                                 <div
                                     v-if="form.errors.price"
-                                    class="text-sm text-red-600"
+                                    class="text-sm text-red-400"
                                 >
                                     {{ form.errors.price }}
                                 </div>
@@ -85,7 +85,7 @@ const submit = () => {
                                 />
                                 <div
                                     v-if="form.errors.stock_quantity"
-                                    class="text-sm text-red-600"
+                                    class="text-sm text-red-400"
                                 >
                                     {{ form.errors.stock_quantity }}
                                 </div>
@@ -99,11 +99,11 @@ const submit = () => {
                                     @input="form.image = $event.target.files[0]"
                                     type="file"
                                     accept="image/*"
-                                    class="block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-gray-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-200"
+                                    class="block w-full text-sm text-slate-400 file:mr-4 file:rounded-md file:border-0 file:bg-slate-800 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-300 hover:file:bg-slate-700 file:cursor-pointer"
                                 />
                                 <div
                                     v-if="form.errors.image"
-                                    class="text-sm text-red-600"
+                                    class="text-sm text-red-400"
                                 >
                                     {{ form.errors.image }}
                                 </div>
@@ -112,13 +112,14 @@ const submit = () => {
                             <!-- Actions -->
                             <div class="flex items-center justify-end gap-4 pt-4">
                                 <Link :href="route('admin.products.index')">
-                                    <Button variant="outline" :disabled="form.processing">
+                                    <Button variant="outline" :disabled="form.processing" class="border-slate-700 text-slate-300 hover:bg-slate-800">
                                         Cancel
                                     </Button>
                                 </Link>
                                 <Button
                                     type="submit"
                                     :disabled="form.processing"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white"
                                 >
                                     {{ form.processing ? 'Creating...' : 'Create Product' }}
                                 </Button>

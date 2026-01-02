@@ -81,6 +81,7 @@ const removeItem = (itemId) => {
                                             @click="updateQuantity(item, item.quantity - 1)"
                                             variant="outline"
                                             size="sm"
+                                            class="border-slate-700 text-slate-300 hover:bg-slate-800"
                                             :disabled="item.quantity <= 1"
                                         >
                                             -
@@ -139,7 +140,7 @@ const removeItem = (itemId) => {
                                 @submit.prevent="router.post(route('cart.checkout'))"
                                 class="inline"
                             >
-                                <Button type="submit" class="bg-blue-500 hover:bg-blue-600">Checkout</Button>
+                                <Button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white">Checkout</Button>
                             </form>
                         </div>
                     </CardContent>
@@ -149,7 +150,7 @@ const removeItem = (itemId) => {
                 <Card v-else class="border-slate-800 bg-slate-900">
                     <CardContent class="p-12 text-center">
                         <svg
-                            class="mx-auto h-12 w-12 text-gray-400"
+                            class="mx-auto h-12 w-12 text-slate-400"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -169,7 +170,7 @@ const removeItem = (itemId) => {
                         </p>
                         <div class="mt-6">
                             <Link :href="route('products.index')">
-                                <Button class="bg-blue-500 hover:bg-blue-600">Browse Products</Button>
+                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">Browse Products</Button>
                             </Link>
                         </div>
                     </CardContent>

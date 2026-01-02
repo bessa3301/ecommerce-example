@@ -20,7 +20,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Confirm Password" />
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-sm text-slate-400">
             This is a secure area of the application. Please confirm your
             password before continuing.
         </div>
@@ -36,7 +36,7 @@ const submit = () => {
                     autocomplete="current-password"
                     autofocus
                 />
-                <div v-if="form.errors.password" class="text-sm text-red-600">
+                <div v-if="form.errors.password" class="text-sm text-red-400">
                     {{ form.errors.password }}
                 </div>
             </div>
@@ -45,6 +45,7 @@ const submit = () => {
                 <Button
                     type="submit"
                     :disabled="form.processing"
+                    class="bg-blue-500 hover:bg-blue-600 text-white"
                 >
                     Confirm
                 </Button>

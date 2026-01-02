@@ -32,7 +32,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
+        <div v-if="status" class="mb-4 text-sm font-medium text-green-400">
             {{ status }}
         </div>
 
@@ -47,7 +47,7 @@ const submit = () => {
                     autofocus
                     autocomplete="username"
                 />
-                <div v-if="form.errors.email" class="text-sm text-red-600">
+                <div v-if="form.errors.email" class="text-sm text-red-400">
                     {{ form.errors.email }}
                 </div>
             </div>
@@ -61,7 +61,7 @@ const submit = () => {
                     required
                     autocomplete="current-password"
                 />
-                <div v-if="form.errors.password" class="text-sm text-red-600">
+                <div v-if="form.errors.password" class="text-sm text-red-400">
                     {{ form.errors.password }}
                 </div>
             </div>
@@ -80,7 +80,7 @@ const submit = () => {
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="text-sm text-gray-600 underline hover:text-gray-900"
+                    class="text-sm text-slate-400 underline hover:text-blue-400"
                 >
                     Forgot your password?
                 </Link>
@@ -88,6 +88,7 @@ const submit = () => {
                 <Button
                     type="submit"
                     :disabled="form.processing"
+                    class="bg-blue-500 hover:bg-blue-600 text-white"
                 >
                     Log in
                 </Button>

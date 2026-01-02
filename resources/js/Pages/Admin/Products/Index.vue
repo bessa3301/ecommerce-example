@@ -33,7 +33,7 @@ const deleteProduct = (productId) => {
             <div class="mb-8 flex items-center justify-between">
                 <h1 class="text-3xl font-bold text-white">Product Management</h1>
                 <Link :href="route('admin.products.create')">
-                    <Button class="bg-blue-500 hover:bg-blue-600">Add New Product</Button>
+                    <Button class="bg-blue-500 hover:bg-blue-600 text-white">Add New Product</Button>
                 </Link>
             </div>
                 <Card class="border-slate-800 bg-slate-900">
@@ -65,7 +65,7 @@ const deleteProduct = (productId) => {
                                         :key="product.id"
                                     >
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            <div class="h-16 w-16 overflow-hidden rounded bg-gray-100">
+                                            <div class="h-16 w-16 overflow-hidden rounded bg-slate-800">
                                                 <img
                                                     v-if="product.image"
                                                     :src="`/storage/${product.image}`"
@@ -74,7 +74,7 @@ const deleteProduct = (productId) => {
                                                 />
                                                 <div
                                                     v-else
-                                                    class="flex h-full w-full items-center justify-center text-gray-400"
+                                                    class="flex h-full w-full items-center justify-center text-slate-600"
                                                 >
                                                     <svg
                                                         class="h-8 w-8"
@@ -116,12 +116,12 @@ const deleteProduct = (productId) => {
                                         <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                             <div class="flex items-center justify-end gap-2">
                                                 <Link :href="route('admin.products.edit', product.id)">
-                                                    <Button variant="outline" size="sm">Edit</Button>
+                                                    <Button variant="outline" size="sm" class="border-slate-700 text-slate-300 hover:bg-slate-800">Edit</Button>
                                                 </Link>
                                                 <Button
-                                                    variant="destructive"
                                                     size="sm"
                                                     @click="deleteProduct(product.id)"
+                                                    class="bg-red-600 text-white hover:bg-red-700"
                                                 >
                                                     Delete
                                                 </Button>
@@ -135,7 +135,7 @@ const deleteProduct = (productId) => {
                         <div v-else class="py-12 text-center">
                             <p class="text-slate-400">No products found.</p>
                             <Link :href="route('admin.products.create')">
-                                <Button class="mt-4 bg-blue-500 hover:bg-blue-600">Create Your First Product</Button>
+                                <Button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white">Create Your First Product</Button>
                             </Link>
                         </div>
                     </CardContent>

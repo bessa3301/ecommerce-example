@@ -34,7 +34,7 @@ const submit = () => {
                     autofocus
                     autocomplete="name"
                 />
-                <div v-if="form.errors.name" class="text-sm text-red-600">
+                <div v-if="form.errors.name" class="text-sm text-red-400">
                     {{ form.errors.name }}
                 </div>
             </div>
@@ -48,7 +48,7 @@ const submit = () => {
                     required
                     autocomplete="username"
                 />
-                <div v-if="form.errors.email" class="text-sm text-red-600">
+                <div v-if="form.errors.email" class="text-sm text-red-400">
                     {{ form.errors.email }}
                 </div>
             </div>
@@ -62,7 +62,7 @@ const submit = () => {
                     required
                     autocomplete="new-password"
                 />
-                <div v-if="form.errors.password" class="text-sm text-red-600">
+                <div v-if="form.errors.password" class="text-sm text-red-400">
                     {{ form.errors.password }}
                 </div>
             </div>
@@ -76,7 +76,7 @@ const submit = () => {
                     required
                     autocomplete="new-password"
                 />
-                <div v-if="form.errors.password_confirmation" class="text-sm text-red-600">
+                <div v-if="form.errors.password_confirmation" class="text-sm text-red-400">
                     {{ form.errors.password_confirmation }}
                 </div>
             </div>
@@ -84,7 +84,7 @@ const submit = () => {
             <div class="flex items-center justify-end gap-4">
                 <Link
                     :href="route('login')"
-                    class="text-sm text-gray-600 underline hover:text-gray-900"
+                    class="text-sm text-slate-400 underline hover:text-blue-400"
                 >
                     Already registered?
                 </Link>
@@ -92,6 +92,7 @@ const submit = () => {
                 <Button
                     type="submit"
                     :disabled="form.processing"
+                    class="bg-blue-500 hover:bg-blue-600 text-white"
                 >
                     Register
                 </Button>

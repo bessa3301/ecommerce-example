@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
@@ -33,19 +34,15 @@ const updatePassword = () => {
 </script>
 
 <template>
-    <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Update Password
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-600">
-                Ensure your account is using a long, random password to stay
-                secure.
-            </p>
-        </header>
-
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+    <Card class="border-slate-800 bg-slate-900">
+        <CardHeader>
+            <CardTitle class="text-white">Update Password</CardTitle>
+            <CardDescription class="text-slate-400">
+                Ensure your account is using a long, random password to stay secure.
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <form @submit.prevent="updatePassword" class="space-y-6">
             <div class="space-y-2">
                 <Label for="current_password">Current Password</Label>
                 <Input
@@ -55,7 +52,7 @@ const updatePassword = () => {
                     type="password"
                     autocomplete="current-password"
                 />
-                <div v-if="form.errors.current_password" class="text-sm text-red-600">
+                <div v-if="form.errors.current_password" class="text-sm text-red-400">
                     {{ form.errors.current_password }}
                 </div>
             </div>
@@ -69,7 +66,7 @@ const updatePassword = () => {
                     type="password"
                     autocomplete="new-password"
                 />
-                <div v-if="form.errors.password" class="text-sm text-red-600">
+                <div v-if="form.errors.password" class="text-sm text-red-400">
                     {{ form.errors.password }}
                 </div>
             </div>
@@ -82,13 +79,13 @@ const updatePassword = () => {
                     type="password"
                     autocomplete="new-password"
                 />
-                <div v-if="form.errors.password_confirmation" class="text-sm text-red-600">
+                <div v-if="form.errors.password_confirmation" class="text-sm text-red-400">
                     {{ form.errors.password_confirmation }}
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
-                <Button type="submit" :disabled="form.processing">Save</Button>
+                <Button type="submit" :disabled="form.processing" class="bg-blue-500 hover:bg-blue-600 text-white">Save</Button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -98,12 +95,13 @@ const updatePassword = () => {
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600"
+                        class="text-sm text-slate-400"
                     >
                         Saved.
                     </p>
                 </Transition>
             </div>
-        </form>
-    </section>
+            </form>
+        </CardContent>
+    </Card>
 </template>

@@ -116,7 +116,7 @@ const addToCart = (productId) => {
                                     <Button
                                         v-if="$page.props.auth.user"
                                         @click="addToCart(product.id)"
-                                        class="w-full bg-blue-500 hover:bg-blue-600"
+                                        class="w-full bg-blue-500 hover:bg-blue-600 text-white"
                                         size="lg"
                                         :disabled="product.stock_quantity === 0"
                                     >
@@ -135,7 +135,7 @@ const addToCart = (productId) => {
                                         </p>
                                         <div class="flex justify-center gap-3">
                                             <Link :href="route('login')">
-                                                <Button class="bg-blue-500 hover:bg-blue-600">Log in</Button>
+                                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">Log in</Button>
                                             </Link>
                                             <Link :href="route('register')">
                                                 <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">Register</Button>

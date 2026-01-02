@@ -24,7 +24,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Forgot Password" />
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-sm text-slate-400">
             Forgot your password? No problem. Just let us know your email
             address and we will email you a password reset link that will allow
             you to choose a new one.
@@ -32,7 +32,7 @@ const submit = () => {
 
         <div
             v-if="status"
-            class="mb-4 text-sm font-medium text-green-600"
+            class="mb-4 text-sm font-medium text-green-400"
         >
             {{ status }}
         </div>
@@ -48,7 +48,7 @@ const submit = () => {
                     autofocus
                     autocomplete="username"
                 />
-                <div v-if="form.errors.email" class="text-sm text-red-600">
+                <div v-if="form.errors.email" class="text-sm text-red-400">
                     {{ form.errors.email }}
                 </div>
             </div>
@@ -57,6 +57,7 @@ const submit = () => {
                 <Button
                     type="submit"
                     :disabled="form.processing"
+                    class="bg-blue-500 hover:bg-blue-600 text-white"
                 >
                     Email Password Reset Link
                 </Button>

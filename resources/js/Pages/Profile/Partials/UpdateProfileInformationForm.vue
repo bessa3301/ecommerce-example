@@ -3,6 +3,7 @@ import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 defineProps({
     mustVerifyEmail: {
@@ -22,21 +23,18 @@ const form = useForm({
 </script>
 
 <template>
-    <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Profile Information
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-600">
+    <Card class="border-slate-800 bg-slate-900">
+        <CardHeader>
+            <CardTitle class="text-white">Profile Information</CardTitle>
+            <CardDescription class="text-slate-400">
                 Update your account's profile information and email address.
-            </p>
-        </header>
-
-        <form
-            @submit.prevent="form.patch(route('profile.update'))"
-            class="mt-6 space-y-6"
-        >
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <form
+                @submit.prevent="form.patch(route('profile.update'))"
+                class="space-y-6"
+            >
             <div class="space-y-2">
                 <Label for="name">Name</Label>
                 <Input
@@ -47,7 +45,7 @@ const form = useForm({
                     autofocus
                     autocomplete="name"
                 />
-                <div v-if="form.errors.name" class="text-sm text-red-600">
+                <div v-if="form.errors.name" class="text-sm text-red-400">
                     {{ form.errors.name }}
                 </div>
             </div>
@@ -61,19 +59,19 @@ const form = useForm({
                     required
                     autocomplete="username"
                 />
-                <div v-if="form.errors.email" class="text-sm text-red-600">
+                <div v-if="form.errors.email" class="text-sm text-red-400">
                     {{ form.errors.email }}
                 </div>
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="mt-2 text-sm text-gray-800">
+                <p class="mt-2 text-sm text-slate-300">
                     Your email address is unverified.
                     <Link
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        class="rounded-md text-sm text-slate-400 underline hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >
                         Click here to re-send the verification email.
                     </Link>
@@ -81,14 +79,14 @@ const form = useForm({
 
                 <div
                     v-show="status === 'verification-link-sent'"
-                    class="mt-2 text-sm font-medium text-green-600"
+                    class="mt-2 text-sm font-medium text-green-400"
                 >
                     A new verification link has been sent to your email address.
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
-                <Button type="submit" :disabled="form.processing">Save</Button>
+                <Button type="submit" :disabled="form.processing" class="bg-blue-500 hover:bg-blue-600 text-white">Save</Button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -98,12 +96,13 @@ const form = useForm({
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600"
+                        class="text-sm text-slate-400"
                     >
                         Saved.
                     </p>
                 </Transition>
             </div>
-        </form>
-    </section>
+            </form>
+        </CardContent>
+    </Card>
 </template>

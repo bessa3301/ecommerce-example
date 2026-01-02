@@ -139,7 +139,7 @@ const addToCart = (productId) => {
                             <Button
                                 v-if="$page.props.auth.user"
                                 @click="addToCart(product.id)"
-                                class="mt-4 w-full bg-blue-500 hover:bg-blue-600"
+                                class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white"
                                 :disabled="product.stock_quantity === 0"
                             >
                                 {{

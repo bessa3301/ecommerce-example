@@ -4,6 +4,7 @@ import { nextTick, ref } from 'vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import {
     Dialog,
     DialogContent,
@@ -44,22 +45,24 @@ const closeModal = () => {
 </script>
 
 <template>
-    <section class="space-y-6">
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Delete Account
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-600">
+    <Card class="border-slate-800 bg-slate-900">
+        <CardHeader>
+            <CardTitle class="text-white">Delete Account</CardTitle>
+            <CardDescription class="text-slate-400">
                 Once your account is deleted, all of its resources and data will
                 be permanently deleted. Before deleting your account, please
                 download any data or information that you wish to retain.
-            </p>
-        </header>
-
-        <Button variant="destructive" @click="confirmUserDeletion">
-            Delete Account
-        </Button>
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Button 
+                @click="confirmUserDeletion"
+                class="bg-red-600 text-white hover:bg-red-700"
+            >
+                Delete Account
+            </Button>
+        </CardContent>
+    </Card>
 
         <Dialog :open="confirmingUserDeletion" @update:open="(val) => !val && closeModal()">
             <DialogContent>
@@ -82,19 +85,19 @@ const closeModal = () => {
                         placeholder="Password"
                         @keyup.enter="deleteUser"
                     />
-                    <div v-if="form.errors.password" class="text-sm text-red-600">
+                    <div v-if="form.errors.password" class="text-sm text-red-400">
                         {{ form.errors.password }}
                     </div>
                 </div>
 
                 <DialogFooter>
-                    <Button variant="outline" @click="closeModal">
+                    <Button variant="outline" @click="closeModal" class="border-slate-700 text-slate-300 hover:bg-slate-800">
                         Cancel
                     </Button>
                     <Button
-                        variant="destructive"
                         :disabled="form.processing"
                         @click="deleteUser"
+                        class="bg-red-600 text-white hover:bg-red-700"
                     >
                         Delete Account
                     </Button>

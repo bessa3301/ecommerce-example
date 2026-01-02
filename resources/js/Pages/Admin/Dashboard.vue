@@ -43,7 +43,7 @@ const formatPrice = (price) => {
             <div class="mb-8 flex items-center justify-between">
                 <h1 class="text-3xl font-bold text-white">Admin Dashboard</h1>
                 <Link :href="route('admin.products.index')">
-                    <Button class="bg-blue-500 hover:bg-blue-600">Manage Products</Button>
+                    <Button class="bg-blue-500 hover:bg-blue-600 text-white">Manage Products</Button>
                 </Link>
             </div>
                 <!-- Stats Grid -->
@@ -53,7 +53,7 @@ const formatPrice = (price) => {
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
                                     <svg
-                                        class="h-6 w-6 text-gray-400"
+                                        class="h-6 w-6 text-slate-400"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -252,7 +252,7 @@ const formatPrice = (price) => {
                         </h3>
                         <div class="flex flex-wrap gap-4">
                             <Link :href="route('admin.products.create')">
-                                <Button class="bg-blue-500 hover:bg-blue-600">+ Add New Product</Button>
+                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">+ Add New Product</Button>
                             </Link>
                             <Link :href="route('admin.products.index')">
                                 <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">View All Products</Button>
