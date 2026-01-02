@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import UserLayout from '@/Layouts/UserLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -47,34 +47,28 @@ const removeItem = (itemId) => {
 <template>
     <Head title="Shopping Cart" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Shopping Cart
-            </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <Card v-if="cart.items.length > 0">
-                    <CardContent class="p-6">
+    <UserLayout>
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <h1 class="mb-8 text-3xl font-bold text-white">Shopping Cart</h1>
+            <Card v-if="cart.items.length > 0" class="border-slate-800 bg-slate-900">
+                <CardContent class="p-6">
                         <!-- Cart Items -->
                         <div class="space-y-6">
                             <div
                                 v-for="item in cart.items"
                                 :key="item.id"
-                                class="flex items-center justify-between border-b border-gray-200 pb-6 last:border-0 last:pb-0"
+                                class="flex items-center justify-between border-b border-slate-800 pb-6 last:border-0 last:pb-0"
                             >
                                 <div class="flex-1">
-                                    <h3 class="text-lg font-semibold text-gray-900">
+                                    <h3 class="text-lg font-semibold text-white">
                                         {{ item.product.name }}
                                     </h3>
-                                    <p class="mt-1 text-sm text-gray-500">
+                                    <p class="mt-1 text-sm text-slate-400">
                                         {{ formatPrice(item.product.price) }} each
                                     </p>
                                     <p
                                         v-if="item.product.stock_quantity < 10"
-                                        class="mt-1 text-xs text-red-600"
+                                        class="mt-1 text-xs text-red-400"
                                     >
                                         Low stock: {{ item.product.stock_quantity }} available
                                     </p>
@@ -91,13 +85,14 @@ const removeItem = (itemId) => {
                                         >
                                             -
                                         </Button>
-                                        <span class="w-12 text-center text-sm font-medium">
+                                        <span class="w-12 text-center text-sm font-medium text-white">
                                             {{ item.quantity }}
                                         </span>
                                         <Button
                                             @click="updateQuantity(item, item.quantity + 1)"
                                             variant="outline"
                                             size="sm"
+                                            class="border-slate-700 text-slate-300 hover:bg-slate-800"
                                             :disabled="item.quantity >= item.product.stock_quantity"
                                         >
                                             +
@@ -106,7 +101,7 @@ const removeItem = (itemId) => {
 
                                     <!-- Subtotal -->
                                     <div class="w-24 text-right">
-                                        <p class="text-lg font-semibold text-gray-900">
+                                        <p class="text-lg font-semibold text-white">
                                             {{ formatPrice(item.subtotal) }}
                                         </p>
                                     </div>
@@ -114,8 +109,8 @@ const removeItem = (itemId) => {
                                     <!-- Remove Button -->
                                     <Button
                                         @click="removeItem(item.id)"
-                                        variant="destructive"
                                         size="sm"
+                                        class="bg-red-600 text-white hover:bg-red-700"
                                     >
                                         Remove
                                     </Button>
@@ -124,12 +119,12 @@ const removeItem = (itemId) => {
                         </div>
 
                         <!-- Cart Total -->
-                        <div class="mt-8 border-t border-gray-200 pt-6">
+                        <div class="mt-8 border-t border-slate-800 pt-6">
                             <div class="flex items-center justify-between">
-                                <span class="text-xl font-semibold text-gray-900">
+                                <span class="text-xl font-semibold text-white">
                                     Total:
                                 </span>
-                                <span class="text-2xl font-bold text-gray-900">
+                                <span class="text-2xl font-bold text-blue-400">
                                     {{ formatPrice(cart.total) }}
                                 </span>
                             </div>
@@ -138,20 +133,20 @@ const removeItem = (itemId) => {
                         <!-- Actions -->
                         <div class="mt-6 flex gap-4">
                             <Link :href="route('products.index')">
-                                <Button variant="outline">Continue Shopping</Button>
+                                <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">Continue Shopping</Button>
                             </Link>
                             <form
                                 @submit.prevent="router.post(route('cart.checkout'))"
                                 class="inline"
                             >
-                                <Button type="submit">Checkout</Button>
+                                <Button type="submit" class="bg-blue-500 hover:bg-blue-600">Checkout</Button>
                             </form>
                         </div>
                     </CardContent>
                 </Card>
 
                 <!-- Empty Cart -->
-                <Card v-else>
+                <Card v-else class="border-slate-800 bg-slate-900">
                     <CardContent class="p-12 text-center">
                         <svg
                             class="mx-auto h-12 w-12 text-gray-400"
@@ -166,21 +161,20 @@ const removeItem = (itemId) => {
                                 d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                             />
                         </svg>
-                        <h3 class="mt-4 text-lg font-semibold text-gray-900">
+                        <h3 class="mt-4 text-lg font-semibold text-white">
                             Your cart is empty
                         </h3>
-                        <p class="mt-2 text-sm text-gray-500">
+                        <p class="mt-2 text-sm text-slate-400">
                             Start shopping to add items to your cart.
                         </p>
                         <div class="mt-6">
                             <Link :href="route('products.index')">
-                                <Button>Browse Products</Button>
+                                <Button class="bg-blue-500 hover:bg-blue-600">Browse Products</Button>
                             </Link>
                         </div>
                     </CardContent>
                 </Card>
-            </div>
         </div>
-    </AuthenticatedLayout>
+    </UserLayout>
 </template>
 

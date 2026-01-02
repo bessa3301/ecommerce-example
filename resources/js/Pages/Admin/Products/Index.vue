@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -28,44 +28,38 @@ const deleteProduct = (productId) => {
 <template>
     <Head title="Admin - Products" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Product Management
-                </h2>
+    <AdminLayout>
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div class="mb-8 flex items-center justify-between">
+                <h1 class="text-3xl font-bold text-white">Product Management</h1>
                 <Link :href="route('admin.products.create')">
-                    <Button>Add New Product</Button>
+                    <Button class="bg-blue-500 hover:bg-blue-600">Add New Product</Button>
                 </Link>
             </div>
-        </template>
-
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <Card>
+                <Card class="border-slate-800 bg-slate-900">
                     <CardContent class="p-6">
                         <div v-if="products.length > 0" class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
+                            <table class="min-w-full divide-y divide-slate-800">
+                                <thead class="bg-slate-800">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-400">
                                             Image
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-400">
                                             Name
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-400">
                                             Price
                                         </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-400">
                                             Stock
                                         </th>
-                                        <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                                        <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-slate-400">
                                             Actions
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
+                                <tbody class="divide-y divide-slate-800 bg-slate-900">
                                     <tr
                                         v-for="product in products"
                                         :key="product.id"
@@ -99,20 +93,20 @@ const deleteProduct = (productId) => {
                                             </div>
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            <div class="text-sm font-medium text-gray-900">
+                                            <div class="text-sm font-medium text-white">
                                                 {{ product.name }}
                                             </div>
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            <div class="text-sm text-gray-900">
+                                            <div class="text-sm text-white">
                                                 {{ formatPrice(product.price) }}
                                             </div>
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             <span
                                                 :class="{
-                                                    'text-red-600': product.stock_quantity <= 10,
-                                                    'text-gray-900': product.stock_quantity > 10,
+                                                    'text-red-400': product.stock_quantity <= 10,
+                                                    'text-slate-400': product.stock_quantity > 10,
                                                 }"
                                                 class="text-sm font-medium"
                                             >
@@ -138,16 +132,15 @@ const deleteProduct = (productId) => {
                             </table>
                         </div>
 
-                        <div v-else class="text-center py-12">
-                            <p class="text-gray-500">No products found.</p>
+                        <div v-else class="py-12 text-center">
+                            <p class="text-slate-400">No products found.</p>
                             <Link :href="route('admin.products.create')">
-                                <Button class="mt-4">Create Your First Product</Button>
+                                <Button class="mt-4 bg-blue-500 hover:bg-blue-600">Create Your First Product</Button>
                             </Link>
                         </div>
                     </CardContent>
                 </Card>
-            </div>
         </div>
-    </AuthenticatedLayout>
+    </AdminLayout>
 </template>
 

@@ -1,8 +1,9 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import UserLayout from '@/Layouts/UserLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 defineProps({
     products: {
@@ -43,70 +44,53 @@ const addToCart = (productId) => {
     <Head title="Products" />
 
     <component
-        :is="$page.props.auth.user ? AuthenticatedLayout : 'div'"
-        :class="{ 'min-h-screen bg-gray-100': !$page.props.auth.user }"
+        :is="$page.props.auth.user ? UserLayout : GuestLayout"
     >
-        <template v-if="$page.props.auth.user" #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Products
-            </h2>
-        </template>
-
-        <div
-            :class="{
-                'py-12': $page.props.auth.user,
-                'container mx-auto px-4 py-8': !$page.props.auth.user,
-            }"
-        >
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <!-- Guest Navigation -->
-                <nav
-                    v-if="!$page.props.auth.user"
-                    class="mb-8 flex items-center justify-between"
-                >
-                    <Link
-                        href="/"
-                        class="text-2xl font-bold text-gray-900"
-                    >
-                        E-commerce Demo
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <!-- Hero Section for Guests -->
+            <div v-if="!$page.props.auth.user" class="mb-16 text-center">
+                <h1 class="text-5xl font-bold tracking-tight text-white sm:text-6xl">
+                    Discover Premium Products
+                </h1>
+                <p class="mt-6 text-lg leading-8 text-slate-400">
+                    Explore our curated collection of high-quality products
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6">
+                    <Link :href="route('register')">
+                        <Button size="lg" class="bg-blue-500 hover:bg-blue-600 text-white">
+                            Get Started
+                        </Button>
                     </Link>
-                    <div class="flex gap-4">
-                        <Link
-                            :href="route('login')"
-                            class="rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-                        >
-                            Log in
-                        </Link>
-                        <Link
-                            :href="route('register')"
-                            class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-                        >
-                            Register
-                        </Link>
-                    </div>
-                </nav>
+                    <Link :href="route('login')">
+                        <Button variant="outline" size="lg" class="border-slate-700 text-slate-300 hover:bg-slate-800">
+                            Sign In
+                        </Button>
+                    </Link>
+                </div>
+            </div>
 
-                <!-- Products Grid -->
-                <div
-                    v-if="products.length > 0"
-                    class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                >
-                    <div
+            <!-- Products Grid -->
+            <div v-if="products.length > 0">
+                <h2 class="mb-8 text-3xl font-bold text-white">
+                    {{ $page.props.auth.user ? 'Our Products' : 'Featured Products' }}
+                </h2>
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <Card
                         v-for="product in products"
                         :key="product.id"
-                        class="overflow-hidden rounded-lg bg-white shadow-md transition-shadow hover:shadow-lg"
+                        class="group overflow-hidden border-slate-800 bg-slate-900 transition-all hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10"
                     >
                         <Link :href="route('products.show', product.id)">
-                            <div class="aspect-square w-full overflow-hidden bg-gray-100">
+                            <div class="aspect-square w-full overflow-hidden bg-slate-800">
                                 <img
                                     v-if="product.image"
                                     :src="`/storage/${product.image}`"
                                     :alt="product.name"
-                                    class="h-full w-full object-cover transition-transform hover:scale-105"
+                                    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                                 />
                                 <div
                                     v-else
-                                    class="flex h-full w-full items-center justify-center text-gray-400"
+                                    class="flex h-full w-full items-center justify-center text-slate-600"
                                 >
                                     <svg
                                         class="h-16 w-16"
@@ -124,36 +108,30 @@ const addToCart = (productId) => {
                                 </div>
                             </div>
                         </Link>
-                        <div class="p-6">
+                        <CardContent class="p-6">
                             <Link :href="route('products.show', product.id)">
                                 <h3
-                                    class="text-lg font-semibold text-gray-900 hover:text-gray-600 transition-colors"
+                                    class="text-lg font-semibold text-white transition-colors hover:text-blue-400"
                                 >
                                     {{ product.name }}
                                 </h3>
                             </Link>
-                            <p
-                                class="mt-2 text-2xl font-bold text-gray-900"
-                            >
+                            <p class="mt-2 text-2xl font-bold text-blue-400">
                                 {{ formatPrice(product.price) }}
                             </p>
                             <div class="mt-4 flex items-center justify-between">
                                 <span
                                     :class="{
-                                        'text-red-600': isLowStock(
-                                            product.stock_quantity
-                                        ),
-                                        'text-gray-600': !isLowStock(
-                                            product.stock_quantity
-                                        ),
+                                        'text-red-400': isLowStock(product.stock_quantity),
+                                        'text-slate-400': !isLowStock(product.stock_quantity),
                                     }"
                                     class="text-sm font-medium"
                                 >
-                                    Stock: {{ product.stock_quantity }}
+                                    {{ product.stock_quantity }} in stock
                                 </span>
                                 <span
                                     v-if="isLowStock(product.stock_quantity)"
-                                    class="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-800"
+                                    class="rounded-full bg-red-500/20 px-2 py-1 text-xs font-medium text-red-400"
                                 >
                                     Low Stock
                                 </span>
@@ -161,7 +139,7 @@ const addToCart = (productId) => {
                             <Button
                                 v-if="$page.props.auth.user"
                                 @click="addToCart(product.id)"
-                                class="mt-4 w-full"
+                                class="mt-4 w-full bg-blue-500 hover:bg-blue-600"
                                 :disabled="product.stock_quantity === 0"
                             >
                                 {{
@@ -172,27 +150,28 @@ const addToCart = (productId) => {
                             </Button>
                             <div
                                 v-else
-                                class="mt-4 text-center text-sm text-gray-500"
+                                class="mt-4 text-center"
                             >
-                                <Link
-                                    :href="route('login')"
-                                    class="text-gray-900 hover:underline"
-                                >
-                                    Log in to add to cart
+                                <Link :href="route('login')">
+                                    <Button variant="outline" class="w-full border-slate-700 text-slate-300 hover:bg-slate-800">
+                                        Sign in to purchase
+                                    </Button>
                                 </Link>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Empty State -->
-                <div
-                    v-else
-                    class="rounded-lg bg-white p-12 text-center shadow"
-                >
-                    <p class="text-gray-500">No products available.</p>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
+
+            <!-- Empty State -->
+            <Card
+                v-else
+                class="border-slate-800 bg-slate-900"
+            >
+                <CardContent class="p-12 text-center">
+                    <p class="text-slate-400">No products available.</p>
+                </CardContent>
+            </Card>
         </div>
     </component>
 </template>

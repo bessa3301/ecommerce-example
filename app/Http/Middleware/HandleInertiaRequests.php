@@ -29,6 +29,16 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $cart = null;
+        if ($request->user()) {
+            $userCart = $request->user()->getOrCreateCart();
+            $userCart->load(['items.product']);
+            $cart = [
+                'items_count' => $userCart->items->sum('quantity'),
+                'total' => $userCart->total,
+            ];
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
@@ -39,6 +49,7 @@ class HandleInertiaRequests extends Middleware
                     'is_admin' => $request->user()->isAdmin(),
                 ] : null,
             ],
+            'cart' => $cart,
         ];
     }
 }

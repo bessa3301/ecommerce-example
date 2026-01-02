@@ -7,11 +7,19 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Welcome page for guests, products for authenticated
-Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('products.index');
-    }
+// Products page is now the home page
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
+
+// Keep /products route for backwards compatibility
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+Route::get('/dashboard', function () {
+    return redirect()->route('products.index');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Welcome page for guests (if needed for marketing/landing)
+Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -19,13 +27,6 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('welcome');
-
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

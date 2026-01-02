@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -23,26 +23,17 @@ const submit = () => {
 <template>
     <Head title="Admin - Create Product" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Create New Product
-                </h2>
-                <Link
-                    :href="route('admin.products.index')"
-                    class="text-sm text-gray-600 hover:text-gray-900"
-                >
-                    ← Back to Products
-                </Link>
-            </div>
-        </template>
-
-        <div class="py-12">
-            <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
-                <Card>
+    <AdminLayout>
+        <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:px-8">
+            <Link
+                :href="route('admin.products.index')"
+                class="mb-6 inline-flex items-center text-sm text-slate-400 hover:text-blue-400"
+            >
+                ← Back to Products
+            </Link>
+            <Card class="border-slate-800 bg-slate-900">
                     <CardHeader>
-                        <CardTitle>Create New Product</CardTitle>
+                        <CardTitle class="text-white">Create New Product</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <form @submit.prevent="submit" class="space-y-6">
@@ -135,8 +126,7 @@ const submit = () => {
                         </form>
                     </CardContent>
                 </Card>
-            </div>
         </div>
-    </AuthenticatedLayout>
+    </AdminLayout>
 </template>
 

@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -38,23 +38,17 @@ const formatPrice = (price) => {
 <template>
     <Head title="Admin Dashboard" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Admin Dashboard
-                </h2>
+    <AdminLayout>
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div class="mb-8 flex items-center justify-between">
+                <h1 class="text-3xl font-bold text-white">Admin Dashboard</h1>
                 <Link :href="route('admin.products.index')">
-                    <Button>Manage Products</Button>
+                    <Button class="bg-blue-500 hover:bg-blue-600">Manage Products</Button>
                 </Link>
             </div>
-        </template>
-
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <!-- Stats Grid -->
                 <div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    <Card>
+                    <Card class="border-slate-800 bg-slate-900">
                         <div class="p-5">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
@@ -74,10 +68,10 @@ const formatPrice = (price) => {
                                 </div>
                                 <div class="ml-5 w-0 flex-1">
                                     <dl>
-                                        <dt class="text-sm font-medium text-gray-500 truncate">
+                                        <dt class="text-sm font-medium text-slate-400 truncate">
                                             Total Revenue
                                         </dt>
-                                        <dd class="text-lg font-semibold text-gray-900">
+                                        <dd class="text-lg font-semibold text-white">
                                             {{ formatPrice(stats.total_revenue) }}
                                         </dd>
                                     </dl>
@@ -86,12 +80,12 @@ const formatPrice = (price) => {
                         </div>
                     </Card>
 
-                    <Card>
+                    <Card class="border-slate-800 bg-slate-900">
                         <div class="p-5">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
                                     <svg
-                                        class="h-6 w-6 text-gray-400"
+                                        class="h-6 w-6 text-slate-400"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -106,10 +100,10 @@ const formatPrice = (price) => {
                                 </div>
                                 <div class="ml-5 w-0 flex-1">
                                     <dl>
-                                        <dt class="text-sm font-medium text-gray-500 truncate">
+                                        <dt class="text-sm font-medium text-slate-400 truncate">
                                             Total Orders
                                         </dt>
-                                        <dd class="text-lg font-semibold text-gray-900">
+                                        <dd class="text-lg font-semibold text-white">
                                             {{ stats.total_orders }}
                                         </dd>
                                     </dl>
@@ -118,12 +112,12 @@ const formatPrice = (price) => {
                         </div>
                     </Card>
 
-                    <Card>
+                    <Card class="border-slate-800 bg-slate-900">
                         <div class="p-5">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
                                     <svg
-                                        class="h-6 w-6 text-gray-400"
+                                        class="h-6 w-6 text-slate-400"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -138,10 +132,10 @@ const formatPrice = (price) => {
                                 </div>
                                 <div class="ml-5 w-0 flex-1">
                                     <dl>
-                                        <dt class="text-sm font-medium text-gray-500 truncate">
+                                        <dt class="text-sm font-medium text-slate-400 truncate">
                                             Total Customers
                                         </dt>
-                                        <dd class="text-lg font-semibold text-gray-900">
+                                        <dd class="text-lg font-semibold text-white">
                                             {{ stats.total_customers }}
                                         </dd>
                                     </dl>
@@ -150,12 +144,12 @@ const formatPrice = (price) => {
                         </div>
                     </Card>
 
-                    <Card>
+                    <Card class="border-slate-800 bg-slate-900">
                         <div class="p-5">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
                                     <svg
-                                        class="h-6 w-6 text-gray-400"
+                                        class="h-6 w-6 text-slate-400"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -170,10 +164,10 @@ const formatPrice = (price) => {
                                 </div>
                                 <div class="ml-5 w-0 flex-1">
                                     <dl>
-                                        <dt class="text-sm font-medium text-gray-500 truncate">
+                                        <dt class="text-sm font-medium text-slate-400 truncate">
                                             Total Products
                                         </dt>
-                                        <dd class="text-lg font-semibold text-gray-900">
+                                        <dd class="text-lg font-semibold text-white">
                                             {{ stats.total_products }}
                                         </dd>
                                     </dl>
@@ -185,65 +179,65 @@ const formatPrice = (price) => {
 
                 <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
                     <!-- Recent Orders -->
-                    <Card>
+                    <Card class="border-slate-800 bg-slate-900">
                         <CardContent>
-                            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                            <h3 class="mb-4 text-lg font-semibold text-white">
                                 Recent Orders
                             </h3>
                             <div v-if="recent_orders.length > 0" class="space-y-4">
                                 <div
                                     v-for="order in recent_orders"
                                     :key="order.id"
-                                    class="flex items-center justify-between border-b border-gray-200 pb-4 last:border-0"
+                                    class="flex items-center justify-between border-b border-slate-800 pb-4 last:border-0"
                                 >
                                     <div>
-                                        <p class="text-sm font-medium text-gray-900">
+                                        <p class="text-sm font-medium text-white">
                                             Order #{{ order.id }}
                                         </p>
-                                        <p class="text-sm text-gray-500">
+                                        <p class="text-sm text-slate-400">
                                             {{ order.user_name }} • {{ order.items_count }} items
                                         </p>
-                                        <p class="text-xs text-gray-400">
+                                        <p class="text-xs text-slate-500">
                                             {{ order.created_at }}
                                         </p>
                                     </div>
-                                    <p class="text-sm font-semibold text-gray-900">
+                                    <p class="text-sm font-semibold text-blue-400">
                                         {{ formatPrice(order.total) }}
                                     </p>
                                 </div>
                             </div>
-                            <p v-else class="text-sm text-gray-500">
+                            <p v-else class="text-sm text-slate-400">
                                 No orders yet.
                             </p>
                         </CardContent>
                     </Card>
 
                     <!-- Top Products -->
-                    <Card>
+                    <Card class="border-slate-800 bg-slate-900">
                         <CardContent>
-                            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                            <h3 class="mb-4 text-lg font-semibold text-white">
                                 Top Selling Products
                             </h3>
                             <div v-if="top_products.length > 0" class="space-y-4">
                                 <div
                                     v-for="(product, index) in top_products"
                                     :key="index"
-                                    class="flex items-center justify-between border-b border-gray-200 pb-4 last:border-0"
+                                    class="flex items-center justify-between border-b border-slate-800 pb-4 last:border-0"
                                 >
                                     <div>
-                                        <p class="text-sm font-medium text-gray-900">
+                                        <p class="text-sm font-medium text-white">
                                             {{ product.name }}
                                         </p>
-                                        <p class="text-xs text-gray-500">
+                                        <p class="text-xs text-slate-400">
                                             {{ product.total_sold }} sold
                                         </p>
                                     </div>
-                                    <p class="text-sm font-semibold text-gray-900">
+                                    <p class="text-sm font-semibold text-blue-400">
                                         {{ formatPrice(product.total_revenue) }}
                                     </p>
                                 </div>
                             </div>
-                            <p v-else class="text-sm text-gray-500">
+                            <p v-else class="text-sm text-slate-400">
                                 No sales data yet.
                             </p>
                         </CardContent>
@@ -251,32 +245,32 @@ const formatPrice = (price) => {
                 </div>
 
                 <!-- Quick Actions -->
-                <Card class="mt-6">
+                <Card class="mt-6 border-slate-800 bg-slate-900">
                     <CardContent>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <h3 class="mb-4 text-lg font-semibold text-white">
                             Quick Actions
                         </h3>
                         <div class="flex flex-wrap gap-4">
                             <Link :href="route('admin.products.create')">
-                                <Button>+ Add New Product</Button>
+                                <Button class="bg-blue-500 hover:bg-blue-600">+ Add New Product</Button>
                             </Link>
                             <Link :href="route('admin.products.index')">
-                                <Button variant="outline">View All Products</Button>
+                                <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">View All Products</Button>
                             </Link>
                         </div>
                     </CardContent>
                 </Card>
 
                 <!-- Low Stock Products -->
-                <Card class="mt-6">
+                <Card class="mt-6 border-slate-800 bg-slate-900">
                     <CardContent>
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-lg font-semibold text-gray-900">
+                        <div class="mb-4 flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-white">
                                 Low Stock Products
                             </h3>
                             <Link
                                 :href="route('admin.products.index')"
-                                class="text-sm text-gray-600 hover:text-gray-900"
+                                class="text-sm text-slate-400 hover:text-blue-400"
                             >
                                 Manage Products →
                             </Link>
@@ -285,31 +279,31 @@ const formatPrice = (price) => {
                             <div
                                 v-for="product in low_stock_products"
                                 :key="product.id"
-                                class="flex items-center justify-between border-b border-gray-200 pb-4 last:border-0"
+                                class="flex items-center justify-between border-b border-slate-800 pb-4 last:border-0"
                             >
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900">
+                                    <p class="text-sm font-medium text-white">
                                         {{ product.name }}
                                     </p>
-                                    <p class="text-xs text-red-600">
+                                    <p class="text-xs text-red-400">
                                         Only {{ product.stock_quantity }} left in stock
                                     </p>
                                 </div>
                                 <Link
                                     :href="route('admin.products.edit', product.id)"
-                                    class="text-sm text-gray-600 hover:text-gray-900"
+                                    class="text-sm text-slate-400 hover:text-blue-400"
                                 >
                                     Edit →
                                 </Link>
                             </div>
                         </div>
-                        <p v-else class="text-sm text-gray-500">
+                        <p v-else class="text-sm text-slate-400">
                             All products are well stocked.
                         </p>
                     </CardContent>
                 </Card>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </AdminLayout>
 </template>
 
