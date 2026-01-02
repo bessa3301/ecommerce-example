@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import ApplicationLogo from '@/components/ApplicationLogo.vue';
 import { Link, router } from '@inertiajs/vue3';
 import {
     DropdownMenu,

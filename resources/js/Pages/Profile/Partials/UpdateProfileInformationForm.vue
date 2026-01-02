@@ -1,9 +1,8 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 
 defineProps({
     mustVerifyEmail: {
@@ -38,35 +37,33 @@ const form = useForm({
             @submit.prevent="form.patch(route('profile.update'))"
             class="mt-6 space-y-6"
         >
-            <div>
-                <InputLabel for="name" value="Name" />
-
-                <TextInput
+            <div class="space-y-2">
+                <Label for="name">Name</Label>
+                <Input
                     id="name"
                     type="text"
-                    class="mt-1 block w-full"
                     v-model="form.name"
                     required
                     autofocus
                     autocomplete="name"
                 />
-
-                <InputError class="mt-2" :message="form.errors.name" />
+                <div v-if="form.errors.name" class="text-sm text-red-600">
+                    {{ form.errors.name }}
+                </div>
             </div>
 
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
+            <div class="space-y-2">
+                <Label for="email">Email</Label>
+                <Input
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
                     v-model="form.email"
                     required
                     autocomplete="username"
                 />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+                <div v-if="form.errors.email" class="text-sm text-red-600">
+                    {{ form.errors.email }}
+                </div>
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
@@ -91,7 +88,7 @@ const form = useForm({
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <Button type="submit" :disabled="form.processing">Save</Button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"

@@ -1,12 +1,17 @@
 <script setup>
-import DangerButton from '@/Components/DangerButton.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import Modal from '@/Components/Modal.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { nextTick, ref } from 'vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
@@ -52,57 +57,49 @@ const closeModal = () => {
             </p>
         </header>
 
-        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+        <Button variant="destructive" @click="confirmUserDeletion">
+            Delete Account
+        </Button>
 
-        <Modal :show="confirmingUserDeletion" @close="closeModal">
-            <div class="p-6">
-                <h2
-                    class="text-lg font-medium text-gray-900"
-                >
-                    Are you sure you want to delete your account?
-                </h2>
+        <Dialog :open="confirmingUserDeletion" @update:open="(val) => !val && closeModal()">
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Are you sure you want to delete your account?</DialogTitle>
+                    <DialogDescription>
+                        Once your account is deleted, all of its resources and data
+                        will be permanently deleted. Please enter your password to
+                        confirm you would like to permanently delete your account.
+                    </DialogDescription>
+                </DialogHeader>
 
-                <p class="mt-1 text-sm text-gray-600">
-                    Once your account is deleted, all of its resources and data
-                    will be permanently deleted. Please enter your password to
-                    confirm you would like to permanently delete your account.
-                </p>
-
-                <div class="mt-6">
-                    <InputLabel
-                        for="password"
-                        value="Password"
-                        class="sr-only"
-                    />
-
-                    <TextInput
+                <div class="space-y-2">
+                    <Label for="password" class="sr-only">Password</Label>
+                    <Input
                         id="password"
                         ref="passwordInput"
                         v-model="form.password"
                         type="password"
-                        class="mt-1 block w-3/4"
                         placeholder="Password"
                         @keyup.enter="deleteUser"
                     />
-
-                    <InputError :message="form.errors.password" class="mt-2" />
+                    <div v-if="form.errors.password" class="text-sm text-red-600">
+                        {{ form.errors.password }}
+                    </div>
                 </div>
 
-                <div class="mt-6 flex justify-end">
-                    <SecondaryButton @click="closeModal">
+                <DialogFooter>
+                    <Button variant="outline" @click="closeModal">
                         Cancel
-                    </SecondaryButton>
-
-                    <DangerButton
-                        class="ms-3"
-                        :class="{ 'opacity-25': form.processing }"
+                    </Button>
+                    <Button
+                        variant="destructive"
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
                         Delete Account
-                    </DangerButton>
-                </div>
-            </div>
-        </Modal>
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     </section>
 </template>
