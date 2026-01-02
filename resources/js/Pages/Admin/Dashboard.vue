@@ -1,6 +1,8 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 defineProps({
     stats: {
@@ -42,11 +44,8 @@ const formatPrice = (price) => {
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
                     Admin Dashboard
                 </h2>
-                <Link
-                    :href="route('admin.products.index')"
-                    class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-                >
-                    Manage Products
+                <Link :href="route('admin.products.index')">
+                    <Button>Manage Products</Button>
                 </Link>
             </div>
         </template>
@@ -55,7 +54,7 @@ const formatPrice = (price) => {
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <!-- Stats Grid -->
                 <div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    <div class="overflow-hidden rounded-lg bg-white shadow">
+                    <Card>
                         <div class="p-5">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
@@ -85,9 +84,9 @@ const formatPrice = (price) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Card>
 
-                    <div class="overflow-hidden rounded-lg bg-white shadow">
+                    <Card>
                         <div class="p-5">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
@@ -117,9 +116,9 @@ const formatPrice = (price) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Card>
 
-                    <div class="overflow-hidden rounded-lg bg-white shadow">
+                    <Card>
                         <div class="p-5">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
@@ -149,9 +148,9 @@ const formatPrice = (price) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Card>
 
-                    <div class="overflow-hidden rounded-lg bg-white shadow">
+                    <Card>
                         <div class="p-5">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
@@ -181,13 +180,13 @@ const formatPrice = (price) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Card>
                 </div>
 
                 <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
                     <!-- Recent Orders -->
-                    <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div class="p-6">
+                    <Card>
+                        <CardContent>
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">
                                 Recent Orders
                             </h3>
@@ -216,12 +215,12 @@ const formatPrice = (price) => {
                             <p v-else class="text-sm text-gray-500">
                                 No orders yet.
                             </p>
-                        </div>
-                    </div>
+                        </CardContent>
+                    </Card>
 
                     <!-- Top Products -->
-                    <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div class="p-6">
+                    <Card>
+                        <CardContent>
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">
                                 Top Selling Products
                             </h3>
@@ -247,36 +246,30 @@ const formatPrice = (price) => {
                             <p v-else class="text-sm text-gray-500">
                                 No sales data yet.
                             </p>
-                        </div>
-                    </div>
+                        </CardContent>
+                    </Card>
                 </div>
 
                 <!-- Quick Actions -->
-                <div class="mt-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                <Card class="mt-6">
+                    <CardContent>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">
                             Quick Actions
                         </h3>
                         <div class="flex flex-wrap gap-4">
-                            <Link
-                                :href="route('admin.products.create')"
-                                class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-                            >
-                                + Add New Product
+                            <Link :href="route('admin.products.create')">
+                                <Button>+ Add New Product</Button>
                             </Link>
-                            <Link
-                                :href="route('admin.products.index')"
-                                class="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                            >
-                                View All Products
+                            <Link :href="route('admin.products.index')">
+                                <Button variant="outline">View All Products</Button>
                             </Link>
                         </div>
-                    </div>
-                </div>
+                    </CardContent>
+                </Card>
 
                 <!-- Low Stock Products -->
-                <div class="mt-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                <Card class="mt-6">
+                    <CardContent>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-gray-900">
                                 Low Stock Products
@@ -313,8 +306,8 @@ const formatPrice = (price) => {
                         <p v-else class="text-sm text-gray-500">
                             All products are well stocked.
                         </p>
-                    </div>
-                </div>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     </AuthenticatedLayout>

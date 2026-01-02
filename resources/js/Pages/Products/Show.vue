@@ -1,6 +1,8 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 const props = defineProps({
     product: {
@@ -88,8 +90,8 @@ const addToCart = (productId) => {
                     </div>
                 </nav>
 
-                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6 lg:p-12">
+                <Card>
+                    <CardContent class="p-6 lg:p-12">
                         <div class="grid gap-8 lg:grid-cols-2">
                             <!-- Product Image -->
                             <div class="aspect-square overflow-hidden rounded-lg bg-gray-100">
@@ -155,10 +157,11 @@ const addToCart = (productId) => {
                                     </div>
 
                                     <div class="pt-6">
-                                        <button
+                                        <Button
                                             v-if="$page.props.auth.user"
                                             @click="addToCart(product.id)"
-                                            class="w-full rounded-md bg-gray-900 px-6 py-3 text-lg font-medium text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+                                            class="w-full"
+                                            size="lg"
                                             :disabled="product.stock_quantity === 0"
                                         >
                                             {{
@@ -166,7 +169,7 @@ const addToCart = (productId) => {
                                                     ? 'Out of Stock'
                                                     : 'Add to Cart'
                                             }}
-                                        </button>
+                                        </Button>
                                         <div
                                             v-else
                                             class="rounded-md border border-gray-300 bg-gray-50 p-4 text-center"
@@ -175,17 +178,11 @@ const addToCart = (productId) => {
                                                 Please log in to add items to your cart
                                             </p>
                                             <div class="flex gap-3 justify-center">
-                                                <Link
-                                                    :href="route('login')"
-                                                    class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-                                                >
-                                                    Log in
+                                                <Link :href="route('login')">
+                                                    <Button>Log in</Button>
                                                 </Link>
-                                                <Link
-                                                    :href="route('register')"
-                                                    class="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-                                                >
-                                                    Register
+                                                <Link :href="route('register')">
+                                                    <Button variant="outline">Register</Button>
                                                 </Link>
                                             </div>
                                         </div>
@@ -193,8 +190,8 @@ const addToCart = (productId) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     </component>

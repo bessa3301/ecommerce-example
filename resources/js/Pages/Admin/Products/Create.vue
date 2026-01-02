@@ -1,6 +1,10 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const form = useForm({
     name: '',
@@ -36,123 +40,101 @@ const submit = () => {
 
         <div class="py-12">
             <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
-                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <form @submit.prevent="submit" class="p-6">
-                        <div class="space-y-6">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Create New Product</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <form @submit.prevent="submit" class="space-y-6">
                             <!-- Name -->
-                            <div>
-                                <label
-                                    for="name"
-                                    class="block text-sm font-medium text-gray-700"
-                                >
-                                    Product Name
-                                </label>
-                                <input
+                            <div class="space-y-2">
+                                <Label for="name">Product Name</Label>
+                                <Input
                                     id="name"
                                     v-model="form.name"
                                     type="text"
                                     required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500"
                                 />
                                 <div
                                     v-if="form.errors.name"
-                                    class="mt-1 text-sm text-red-600"
+                                    class="text-sm text-red-600"
                                 >
                                     {{ form.errors.name }}
                                 </div>
                             </div>
 
                             <!-- Price -->
-                            <div>
-                                <label
-                                    for="price"
-                                    class="block text-sm font-medium text-gray-700"
-                                >
-                                    Price
-                                </label>
-                                <input
+                            <div class="space-y-2">
+                                <Label for="price">Price</Label>
+                                <Input
                                     id="price"
                                     v-model="form.price"
                                     type="number"
                                     step="0.01"
                                     min="0"
                                     required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500"
                                 />
                                 <div
                                     v-if="form.errors.price"
-                                    class="mt-1 text-sm text-red-600"
+                                    class="text-sm text-red-600"
                                 >
                                     {{ form.errors.price }}
                                 </div>
                             </div>
 
                             <!-- Stock Quantity -->
-                            <div>
-                                <label
-                                    for="stock_quantity"
-                                    class="block text-sm font-medium text-gray-700"
-                                >
-                                    Stock Quantity
-                                </label>
-                                <input
+                            <div class="space-y-2">
+                                <Label for="stock_quantity">Stock Quantity</Label>
+                                <Input
                                     id="stock_quantity"
                                     v-model="form.stock_quantity"
                                     type="number"
                                     min="0"
                                     required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500"
                                 />
                                 <div
                                     v-if="form.errors.stock_quantity"
-                                    class="mt-1 text-sm text-red-600"
+                                    class="text-sm text-red-600"
                                 >
                                     {{ form.errors.stock_quantity }}
                                 </div>
                             </div>
 
                             <!-- Image -->
-                            <div>
-                                <label
-                                    for="image"
-                                    class="block text-sm font-medium text-gray-700"
-                                >
-                                    Product Image
-                                </label>
+                            <div class="space-y-2">
+                                <Label for="image">Product Image</Label>
                                 <input
                                     id="image"
                                     @input="form.image = $event.target.files[0]"
                                     type="file"
                                     accept="image/*"
-                                    class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-gray-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-200"
+                                    class="block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-gray-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-200"
                                 />
                                 <div
                                     v-if="form.errors.image"
-                                    class="mt-1 text-sm text-red-600"
+                                    class="text-sm text-red-600"
                                 >
                                     {{ form.errors.image }}
                                 </div>
                             </div>
 
                             <!-- Actions -->
-                            <div class="flex items-center justify-end gap-4">
-                                <Link
-                                    :href="route('admin.products.index')"
-                                    class="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                                >
-                                    Cancel
+                            <div class="flex items-center justify-end gap-4 pt-4">
+                                <Link :href="route('admin.products.index')">
+                                    <Button variant="outline" :disabled="form.processing">
+                                        Cancel
+                                    </Button>
                                 </Link>
-                                <button
+                                <Button
                                     type="submit"
                                     :disabled="form.processing"
-                                    class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
                                 >
                                     {{ form.processing ? 'Creating...' : 'Create Product' }}
-                                </button>
+                                </Button>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     </AuthenticatedLayout>

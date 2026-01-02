@@ -1,6 +1,8 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 defineProps({
     products: {
@@ -32,19 +34,16 @@ const deleteProduct = (productId) => {
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
                     Product Management
                 </h2>
-                <Link
-                    :href="route('admin.products.create')"
-                    class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-                >
-                    Add New Product
+                <Link :href="route('admin.products.create')">
+                    <Button>Add New Product</Button>
                 </Link>
             </div>
         </template>
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                <Card>
+                    <CardContent class="p-6">
                         <div v-if="products.length > 0" class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
@@ -121,18 +120,18 @@ const deleteProduct = (productId) => {
                                             </span>
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                            <Link
-                                                :href="route('admin.products.edit', product.id)"
-                                                class="text-gray-600 hover:text-gray-900"
-                                            >
-                                                Edit
-                                            </Link>
-                                            <button
-                                                @click="deleteProduct(product.id)"
-                                                class="ml-4 text-red-600 hover:text-red-900"
-                                            >
-                                                Delete
-                                            </button>
+                                            <div class="flex items-center justify-end gap-2">
+                                                <Link :href="route('admin.products.edit', product.id)">
+                                                    <Button variant="outline" size="sm">Edit</Button>
+                                                </Link>
+                                                <Button
+                                                    variant="destructive"
+                                                    size="sm"
+                                                    @click="deleteProduct(product.id)"
+                                                >
+                                                    Delete
+                                                </Button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -141,15 +140,12 @@ const deleteProduct = (productId) => {
 
                         <div v-else class="text-center py-12">
                             <p class="text-gray-500">No products found.</p>
-                            <Link
-                                :href="route('admin.products.create')"
-                                class="mt-4 inline-block rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-                            >
-                                Create Your First Product
+                            <Link :href="route('admin.products.create')">
+                                <Button class="mt-4">Create Your First Product</Button>
                             </Link>
                         </div>
-                    </div>
-                </div>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     </AuthenticatedLayout>

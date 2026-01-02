@@ -1,13 +1,22 @@
 <script setup>
 import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+    DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const showingNavigationDropdown = ref(false);
+
+const handleLogout = () => {
+    router.post(route('logout'));
+};
 </script>
 
 <template>
@@ -31,86 +40,101 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div
-                                class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
+                                class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex"
                             >
-                                <NavLink
-                                    :href="route('products.index')"
-                                    :active="route().current('products.index')"
+                                <Button
+                                    as-child
+                                    variant="ghost"
+                                    :class="cn(
+                                        route().current('products.index') && 'bg-accent text-accent-foreground'
+                                    )"
                                 >
-                                    Products
-                                </NavLink>
-                                <NavLink
-                                    :href="route('cart.index')"
-                                    :active="route().current('cart.index')"
+                                    <Link :href="route('products.index')">
+                                        Products
+                                    </Link>
+                                </Button>
+                                <Button
+                                    as-child
+                                    variant="ghost"
+                                    :class="cn(
+                                        route().current('cart.index') && 'bg-accent text-accent-foreground'
+                                    )"
                                 >
-                                    Cart
-                                </NavLink>
-                                <NavLink
+                                    <Link :href="route('cart.index')">
+                                        Cart
+                                    </Link>
+                                </Button>
+                                <Button
                                     v-if="$page.props.auth.user?.is_admin"
-                                    :href="route('admin.dashboard')"
-                                    :active="route().current('admin.dashboard')"
+                                    as-child
+                                    variant="ghost"
+                                    :class="cn(
+                                        route().current('admin.dashboard') && 'bg-accent text-accent-foreground'
+                                    )"
                                 >
-                                    Admin Dashboard
-                                </NavLink>
-                                <NavLink
+                                    <Link :href="route('admin.dashboard')">
+                                        Admin Dashboard
+                                    </Link>
+                                </Button>
+                                <Button
                                     v-if="$page.props.auth.user?.is_admin"
-                                    :href="route('admin.products.index')"
-                                    :active="route().current('admin.products.*')"
+                                    as-child
+                                    variant="ghost"
+                                    :class="cn(
+                                        route().current('admin.products.*') && 'bg-accent text-accent-foreground'
+                                    )"
                                 >
-                                    Manage Products
-                                </NavLink>
-                                <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    <Link :href="route('admin.products.index')">
+                                        Manage Products
+                                    </Link>
+                                </Button>
+                                <Button
+                                    as-child
+                                    variant="ghost"
+                                    :class="cn(
+                                        route().current('dashboard') && 'bg-accent text-accent-foreground'
+                                    )"
                                 >
-                                    Dashboard
-                                </NavLink>
+                                    <Link :href="route('dashboard')">
+                                        Dashboard
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
                         <div class="hidden sm:ms-6 sm:flex sm:items-center">
                             <!-- Settings Dropdown -->
                             <div class="relative ms-3">
-                                <Dropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger as-child>
+                                        <Button variant="ghost" class="gap-2">
+                                            {{ $page.props.auth.user.name }}
+                                            <svg
+                                                class="h-4 w-4"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
                                             >
-                                                {{ $page.props.auth.user.name }}
-
-                                                <svg
-                                                    class="-me-0.5 ms-2 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <DropdownLink
-                                            :href="route('profile.edit')"
-                                        >
-                                            Profile
-                                        </DropdownLink>
-                                        <DropdownLink
-                                            :href="route('logout')"
-                                            method="post"
-                                            as="button"
-                                        >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"
+                                                />
+                                            </svg>
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuItem as-child>
+                                            <Link :href="route('profile.edit')" class="w-full">
+                                                Profile
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem @click="handleLogout">
                                             Log Out
-                                        </DropdownLink>
-                                    </template>
-                                </Dropdown>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </div>
                         </div>
 
@@ -166,31 +190,55 @@ const showingNavigationDropdown = ref(false);
                     class="sm:hidden"
                 >
                     <div class="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            :href="route('products.index')"
-                            :active="route().current('products.index')"
+                        <Button
+                            as-child
+                            variant="ghost"
+                            class="w-full justify-start"
+                            :class="cn(
+                                route().current('products.index') && 'bg-accent text-accent-foreground'
+                            )"
                         >
-                            Products
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            :href="route('cart.index')"
-                            :active="route().current('cart.index')"
+                            <Link :href="route('products.index')">
+                                Products
+                            </Link>
+                        </Button>
+                        <Button
+                            as-child
+                            variant="ghost"
+                            class="w-full justify-start"
+                            :class="cn(
+                                route().current('cart.index') && 'bg-accent text-accent-foreground'
+                            )"
                         >
-                            Cart
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
+                            <Link :href="route('cart.index')">
+                                Cart
+                            </Link>
+                        </Button>
+                        <Button
                             v-if="$page.props.auth.user?.is_admin"
-                            :href="route('admin.dashboard')"
-                            :active="route().current('admin.*')"
+                            as-child
+                            variant="ghost"
+                            class="w-full justify-start"
+                            :class="cn(
+                                route().current('admin.*') && 'bg-accent text-accent-foreground'
+                            )"
                         >
-                            Admin
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
+                            <Link :href="route('admin.dashboard')">
+                                Admin
+                            </Link>
+                        </Button>
+                        <Button
+                            as-child
+                            variant="ghost"
+                            class="w-full justify-start"
+                            :class="cn(
+                                route().current('dashboard') && 'bg-accent text-accent-foreground'
+                            )"
                         >
-                            Dashboard
-                        </ResponsiveNavLink>
+                            <Link :href="route('dashboard')">
+                                Dashboard
+                            </Link>
+                        </Button>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -209,16 +257,22 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                :href="route('logout')"
-                                method="post"
-                                as="button"
+                            <Button
+                                as-child
+                                variant="ghost"
+                                class="w-full justify-start"
+                            >
+                                <Link :href="route('profile.edit')">
+                                    Profile
+                                </Link>
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                class="w-full justify-start"
+                                @click="handleLogout"
                             >
                                 Log Out
-                            </ResponsiveNavLink>
+                            </Button>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 import { Head, Link, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import { Button } from '@/components/ui/button';
 
 defineProps({
     products: {
@@ -157,10 +158,10 @@ const addToCart = (productId) => {
                                     Low Stock
                                 </span>
                             </div>
-                            <button
+                            <Button
                                 v-if="$page.props.auth.user"
                                 @click="addToCart(product.id)"
-                                class="mt-4 w-full rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="mt-4 w-full"
                                 :disabled="product.stock_quantity === 0"
                             >
                                 {{
@@ -168,7 +169,7 @@ const addToCart = (productId) => {
                                         ? 'Out of Stock'
                                         : 'Add to Cart'
                                 }}
-                            </button>
+                            </Button>
                             <div
                                 v-else
                                 class="mt-4 text-center text-sm text-gray-500"

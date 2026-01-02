@@ -1,6 +1,8 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 const props = defineProps({
     cart: {
@@ -54,8 +56,8 @@ const removeItem = (itemId) => {
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div v-if="cart.items.length > 0" class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                <Card v-if="cart.items.length > 0">
+                    <CardContent class="p-6">
                         <!-- Cart Items -->
                         <div class="space-y-6">
                             <div
@@ -81,23 +83,25 @@ const removeItem = (itemId) => {
                                 <div class="flex items-center gap-4">
                                     <!-- Quantity Controls -->
                                     <div class="flex items-center gap-2">
-                                        <button
+                                        <Button
                                             @click="updateQuantity(item, item.quantity - 1)"
-                                            class="rounded-md border border-gray-300 px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                            variant="outline"
+                                            size="sm"
                                             :disabled="item.quantity <= 1"
                                         >
                                             -
-                                        </button>
+                                        </Button>
                                         <span class="w-12 text-center text-sm font-medium">
                                             {{ item.quantity }}
                                         </span>
-                                        <button
+                                        <Button
                                             @click="updateQuantity(item, item.quantity + 1)"
-                                            class="rounded-md border border-gray-300 px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                            variant="outline"
+                                            size="sm"
                                             :disabled="item.quantity >= item.product.stock_quantity"
                                         >
                                             +
-                                        </button>
+                                        </Button>
                                     </div>
 
                                     <!-- Subtotal -->
@@ -108,12 +112,13 @@ const removeItem = (itemId) => {
                                     </div>
 
                                     <!-- Remove Button -->
-                                    <button
+                                    <Button
                                         @click="removeItem(item.id)"
-                                        class="rounded-md bg-red-600 px-3 py-1 text-sm font-medium text-white hover:bg-red-700"
+                                        variant="destructive"
+                                        size="sm"
                                     >
                                         Remove
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -132,30 +137,22 @@ const removeItem = (itemId) => {
 
                         <!-- Actions -->
                         <div class="mt-6 flex gap-4">
-                            <Link
-                                :href="route('products.index')"
-                                class="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                            >
-                                Continue Shopping
+                            <Link :href="route('products.index')">
+                                <Button variant="outline">Continue Shopping</Button>
                             </Link>
                             <form
                                 @submit.prevent="router.post(route('cart.checkout'))"
                                 class="inline"
                             >
-                                <button
-                                    type="submit"
-                                    class="rounded-md bg-gray-900 px-6 py-2 text-sm font-medium text-white hover:bg-gray-800"
-                                >
-                                    Checkout
-                                </button>
+                                <Button type="submit">Checkout</Button>
                             </form>
                         </div>
-                    </div>
-                </div>
+                    </CardContent>
+                </Card>
 
                 <!-- Empty Cart -->
-                <div v-else class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-12 text-center">
+                <Card v-else>
+                    <CardContent class="p-12 text-center">
                         <svg
                             class="mx-auto h-12 w-12 text-gray-400"
                             fill="none"
@@ -176,15 +173,12 @@ const removeItem = (itemId) => {
                             Start shopping to add items to your cart.
                         </p>
                         <div class="mt-6">
-                            <Link
-                                :href="route('products.index')"
-                                class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-                            >
-                                Browse Products
+                            <Link :href="route('products.index')">
+                                <Button>Browse Products</Button>
                             </Link>
                         </div>
-                    </div>
-                </div>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     </AuthenticatedLayout>
