@@ -38,9 +38,17 @@ const formatPrice = (price) => {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Admin Dashboard
-            </h2>
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                    Admin Dashboard
+                </h2>
+                <Link
+                    :href="route('admin.products.index')"
+                    class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
+                >
+                    Manage Products
+                </Link>
+            </div>
         </template>
 
         <div class="py-12">
@@ -239,6 +247,29 @@ const formatPrice = (price) => {
                             <p v-else class="text-sm text-gray-500">
                                 No sales data yet.
                             </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="mt-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                            Quick Actions
+                        </h3>
+                        <div class="flex flex-wrap gap-4">
+                            <Link
+                                :href="route('admin.products.create')"
+                                class="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
+                            >
+                                + Add New Product
+                            </Link>
+                            <Link
+                                :href="route('admin.products.index')"
+                                class="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                View All Products
+                            </Link>
                         </div>
                     </div>
                 </div>
