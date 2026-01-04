@@ -15,6 +15,7 @@ import {
     LinearScale,
     PointElement,
     TimeScale,
+    Filler,
 } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
@@ -26,7 +27,8 @@ ChartJS.register(
     CategoryScale,
     LinearScale,
     PointElement,
-    TimeScale
+    TimeScale,
+    Filler
 );
 
 const props = defineProps({
@@ -73,8 +75,8 @@ const chartData = computed(() => {
             {
                 label: 'Sales Revenue',
                 fill: true,
-                backgroundColor: 'rgba(75, 192, 192, 0.4)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(135, 206, 250, 0.6)',
+                borderColor: 'rgba(135, 206, 250, 1)',
                 borderWidth: 2,
                 data: props.sales_chart_data.map((item) => item.revenue),
             },
