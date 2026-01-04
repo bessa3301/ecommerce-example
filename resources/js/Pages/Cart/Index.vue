@@ -136,12 +136,9 @@ const removeItem = (itemId) => {
                             <Link :href="route('products.index')">
                                 <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">Continue Shopping</Button>
                             </Link>
-                            <form
-                                @submit.prevent="router.post(route('cart.checkout'))"
-                                class="inline"
-                            >
-                                <Button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white">Checkout</Button>
-                            </form>
+                            <Link :href="route('checkout.index')">
+                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">Proceed to Checkout</Button>
+                            </Link>
                         </div>
                     </CardContent>
                 </Card>

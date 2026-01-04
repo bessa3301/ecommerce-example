@@ -115,6 +115,42 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Item removed from cart!');
     }
 
+    public function showCheckout()
+    {
+        $cart = auth()->user()->getOrCreateCart();
+        $cart->load('items.product');
+
+        if ($cart->items->isEmpty()) {
+            return redirect()->route('cart.index')->withErrors([
+                'cart' => 'Your cart is empty.',
+            ]);
+        }
+
+        $items = $cart->items->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'product' => [
+                    'id' => $item->product->id,
+                    'name' => $item->product->name,
+                    'price' => $item->product->price,
+                    'stock_quantity' => $item->product->stock_quantity,
+                ],
+                'quantity' => $item->quantity,
+                'subtotal' => $item->quantity * $item->product->price,
+            ];
+        });
+
+        $total = $items->sum('subtotal');
+
+        return Inertia::render('Checkout/Index', [
+            'cart' => [
+                'id' => $cart->id,
+                'items' => $items,
+                'total' => $total,
+            ],
+        ]);
+    }
+
     public function checkout()
     {
         $cart = auth()->user()->getOrCreateCart();
