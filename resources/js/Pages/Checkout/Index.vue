@@ -46,16 +46,17 @@ const formatExpiryDate = (value) => {
     return v;
 };
 
+// Initialize with demo values
 const form = useForm({
-    card_number: '',
+    card_number: '9999999999999999',
     card_holder: '',
-    expiry_date: '',
-    cvv: '',
+    expiry_date: '99/99',
+    cvv: '000',
 });
 
-const cardNumber = ref('');
-const expiryDate = ref('');
-const cvv = ref('');
+const cardNumber = ref('9999 9999 9999 9999');
+const expiryDate = ref('99/99');
+const cvv = ref('000');
 
 const handleCardNumberInput = (event) => {
     const formatted = formatCardNumber(event.target.value);
@@ -147,9 +148,6 @@ const submit = () => {
                                     <p v-if="form.errors.card_number" class="text-sm text-red-400">
                                         {{ form.errors.card_number }}
                                     </p>
-                                    <p class="text-xs text-slate-400">
-                                        For demo: 9999 9999 9999 9999
-                                    </p>
                                 </div>
 
                                 <!-- Card Holder Name -->
@@ -185,9 +183,6 @@ const submit = () => {
                                         <p v-if="form.errors.expiry_date" class="text-sm text-red-400">
                                             {{ form.errors.expiry_date }}
                                         </p>
-                                        <p class="text-xs text-slate-400">
-                                            For demo: 99/99
-                                        </p>
                                     </div>
 
                                     <div class="space-y-2">
@@ -204,9 +199,6 @@ const submit = () => {
                                         />
                                         <p v-if="form.errors.cvv" class="text-sm text-red-400">
                                             {{ form.errors.cvv }}
-                                        </p>
-                                        <p class="text-xs text-slate-400">
-                                            For demo: 000
                                         </p>
                                     </div>
                                 </div>
