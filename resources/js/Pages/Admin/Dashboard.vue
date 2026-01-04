@@ -68,6 +68,7 @@ const formatDate = (dateString) => {
 // Prepare chart data
 const chartData = computed(() => {
     return {
+        labels: props.sales_chart_data.map((item) => formatDate(item.date)),
         datasets: [
             {
                 label: 'Sales Revenue',
@@ -75,10 +76,7 @@ const chartData = computed(() => {
                 backgroundColor: 'rgba(75, 192, 192, 0.4)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
-                data: props.sales_chart_data.map((item) => ({
-                    x: item.revenue,
-                    y: item.date,
-                })),
+                data: props.sales_chart_data.map((item) => item.revenue),
             },
         ],
     };
@@ -97,16 +95,28 @@ const chartOptions = {
         tooltip: {
             callbacks: {
                 label: function (context) {
-                    const date = context.parsed.y;
-                    const revenue = context.parsed.x;
-                    return `${formatDate(date)}: ${formatPrice(revenue)}`;
+                    return formatPrice(context.parsed.y);
                 },
             },
         },
     },
     scales: {
         x: {
-            type: 'linear',
+            title: {
+                display: true,
+                text: 'Date',
+                color: '#cbd5e1',
+            },
+            ticks: {
+                color: '#cbd5e1',
+            },
+            grid: {
+                color: 'rgba(51, 65, 85, 0.5)',
+            },
+        },
+        y: {
+            beginAtZero: true,
+            min: 0,
             title: {
                 display: true,
                 text: 'Sales Revenue',
@@ -117,26 +127,6 @@ const chartOptions = {
                 callback: function (value) {
                     return formatPrice(value);
                 },
-            },
-            grid: {
-                color: 'rgba(51, 65, 85, 0.5)',
-            },
-        },
-        y: {
-            type: 'time',
-            time: {
-                unit: 'day',
-                displayFormats: {
-                    day: 'MMM d',
-                },
-            },
-            title: {
-                display: true,
-                text: 'Date',
-                color: '#cbd5e1',
-            },
-            ticks: {
-                color: '#cbd5e1',
             },
             grid: {
                 color: 'rgba(51, 65, 85, 0.5)',
