@@ -36,7 +36,7 @@ const form = useForm({
                 class="space-y-6"
             >
             <div class="space-y-2">
-                <Label for="name">Name</Label>
+                <Label for="name" class="text-white">Name</Label>
                 <Input
                     id="name"
                     type="text"
@@ -44,6 +44,7 @@ const form = useForm({
                     required
                     autofocus
                     autocomplete="name"
+                    class="text-white"
                 />
                 <div v-if="form.errors.name" class="text-sm text-red-400">
                     {{ form.errors.name }}
@@ -51,13 +52,14 @@ const form = useForm({
             </div>
 
             <div class="space-y-2">
-                <Label for="email">Email</Label>
+                <Label for="email" class="text-white">Email</Label>
                 <Input
                     id="email"
                     type="email"
                     v-model="form.email"
                     required
                     autocomplete="username"
+                    class="text-white"
                 />
                 <div v-if="form.errors.email" class="text-sm text-red-400">
                     {{ form.errors.email }}

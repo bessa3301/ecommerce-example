@@ -44,13 +44,14 @@ const updatePassword = () => {
         <CardContent>
             <form @submit.prevent="updatePassword" class="space-y-6">
             <div class="space-y-2">
-                <Label for="current_password">Current Password</Label>
+                <Label for="current_password" class="text-white">Current Password</Label>
                 <Input
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
                     type="password"
                     autocomplete="current-password"
+                    class="text-white"
                 />
                 <div v-if="form.errors.current_password" class="text-sm text-red-400">
                     {{ form.errors.current_password }}
@@ -58,13 +59,14 @@ const updatePassword = () => {
             </div>
 
             <div class="space-y-2">
-                <Label for="password">New Password</Label>
+                <Label for="password" class="text-white">New Password</Label>
                 <Input
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
                     autocomplete="new-password"
+                    class="text-white"
                 />
                 <div v-if="form.errors.password" class="text-sm text-red-400">
                     {{ form.errors.password }}
@@ -72,12 +74,13 @@ const updatePassword = () => {
             </div>
 
             <div class="space-y-2">
-                <Label for="password_confirmation">Confirm Password</Label>
+                <Label for="password_confirmation" class="text-white">Confirm Password</Label>
                 <Input
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
                     autocomplete="new-password"
+                    class="text-white"
                 />
                 <div v-if="form.errors.password_confirmation" class="text-sm text-red-400">
                     {{ form.errors.password_confirmation }}

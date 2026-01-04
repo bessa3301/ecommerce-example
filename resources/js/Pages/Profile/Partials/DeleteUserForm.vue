@@ -65,10 +65,10 @@ const closeModal = () => {
     </Card>
 
         <Dialog :open="confirmingUserDeletion" @update:open="(val) => !val && closeModal()">
-            <DialogContent>
+            <DialogContent class="bg-slate-900 border-slate-800">
                 <DialogHeader>
-                    <DialogTitle>Are you sure you want to delete your account?</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle class="text-white">Are you sure you want to delete your account?</DialogTitle>
+                    <DialogDescription class="text-slate-400">
                         Once your account is deleted, all of its resources and data
                         will be permanently deleted. Please enter your password to
                         confirm you would like to permanently delete your account.
@@ -76,13 +76,14 @@ const closeModal = () => {
                 </DialogHeader>
 
                 <div class="space-y-2">
-                    <Label for="password" class="sr-only">Password</Label>
+                    <Label for="password" class="sr-only text-white">Password</Label>
                     <Input
                         id="password"
                         ref="passwordInput"
                         v-model="form.password"
                         type="password"
                         placeholder="Password"
+                        class="text-white"
                         @keyup.enter="deleteUser"
                     />
                     <div v-if="form.errors.password" class="text-sm text-red-400">
@@ -104,5 +105,4 @@ const closeModal = () => {
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-    </section>
 </template>
