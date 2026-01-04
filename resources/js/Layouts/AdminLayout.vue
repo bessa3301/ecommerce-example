@@ -23,18 +23,15 @@ const handleLogout = () => {
 
 <template>
     <div class="min-h-screen bg-slate-950">
-        <!-- Admin Navbar -->
         <nav class="border-b border-slate-800 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/75">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-12 items-center justify-between">
                     <div class="flex items-center gap-8">
-                        <!-- Logo -->
                         <Link :href="route('admin.dashboard')" class="flex items-center">
                             <ApplicationLogo class="h-7 w-auto fill-current text-blue-400" />
                             <span class="ml-2 text-xs font-semibold text-blue-400">Admin</span>
                         </Link>
 
-                        <!-- Admin Navigation Links -->
                         <div class="hidden items-center gap-1 sm:flex">
                             <Button
                                 as-child
@@ -86,7 +83,6 @@ const handleLogout = () => {
                         </div>
                     </div>
 
-                    <!-- User Menu -->
                     <div class="flex items-center gap-4">
                         <DropdownMenu>
                             <DropdownMenuTrigger as-child>
@@ -120,7 +116,6 @@ const handleLogout = () => {
                         </DropdownMenu>
                     </div>
 
-                    <!-- Mobile Menu Button -->
                     <div class="flex items-center sm:hidden">
                         <Button
                             variant="ghost"
@@ -153,7 +148,6 @@ const handleLogout = () => {
                     </div>
                 </div>
 
-                <!-- Mobile Navigation -->
                 <div
                     v-show="showingNavigationDropdown"
                     class="border-t border-slate-800 py-2 sm:hidden"
@@ -211,7 +205,6 @@ const handleLogout = () => {
             </div>
         </nav>
 
-        <!-- Page Content -->
         <main class="min-h-[calc(100vh-3rem)]">
             <slot />
         </main>

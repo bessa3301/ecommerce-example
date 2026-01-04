@@ -30,7 +30,6 @@ const addToCart = (productId) => {
     }, {
         preserveScroll: true,
         onSuccess: () => {
-            // Optionally show a success message
         },
     });
 };
@@ -53,7 +52,6 @@ const addToCart = (productId) => {
             <Card class="border-slate-800 bg-slate-900">
                 <CardContent class="p-6 lg:p-12">
                     <div class="grid gap-8 lg:grid-cols-2">
-                        <!-- Product Image -->
                         <div class="aspect-square overflow-hidden rounded-lg bg-slate-800">
                             <img
                                 v-if="product.image"
@@ -81,7 +79,6 @@ const addToCart = (productId) => {
                             </div>
                         </div>
 
-                        <!-- Product Details -->
                         <div>
                             <h1 class="text-3xl font-bold text-white">
                                 {{ product.name }}

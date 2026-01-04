@@ -34,7 +34,6 @@ const addToCart = (productId) => {
     }, {
         preserveScroll: true,
         onSuccess: () => {
-            // Optionally show a success message
         },
     });
 };
@@ -47,7 +46,6 @@ const addToCart = (productId) => {
         :is="$page.props.auth.user ? UserLayout : GuestLayout"
     >
         <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-            <!-- Hero Section for Guests -->
             <div v-if="!$page.props.auth.user" class="mb-16 text-center">
                 <h1 class="text-5xl font-bold tracking-tight text-white sm:text-6xl">
                     Discover Premium Products
@@ -69,7 +67,6 @@ const addToCart = (productId) => {
                 </div>
             </div>
 
-            <!-- Products Grid -->
             <div v-if="products.length > 0">
                 <h2 class="mb-8 text-3xl font-bold text-white">
                     {{ $page.props.auth.user ? 'Our Products' : 'Featured Products' }}
@@ -163,7 +160,6 @@ const addToCart = (productId) => {
                 </div>
             </div>
 
-            <!-- Empty State -->
             <Card
                 v-else
                 class="border-slate-800 bg-slate-900"

@@ -31,17 +31,14 @@ const formatPrice = (price) => {
 
 <template>
     <div class="min-h-screen bg-slate-950">
-        <!-- Compact Navbar -->
         <nav class="border-b border-slate-800 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/75">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-12 items-center justify-between">
                     <div class="flex items-center gap-8">
-                        <!-- Logo -->
                         <Link :href="route('products.index')" class="flex items-center">
                             <ApplicationLogo class="h-7 w-auto fill-current text-blue-400" />
                         </Link>
 
-                        <!-- Navigation Links -->
                         <div class="hidden items-center gap-1 sm:flex">
                             <Button
                                 as-child
@@ -130,9 +127,7 @@ const formatPrice = (price) => {
                         </div>
                     </div>
 
-                    <!-- User Menu -->
                     <div class="flex items-center gap-4">
-                        <!-- Shopping Cart -->
                         <Link
                             :href="route('cart.index')"
                             class="relative flex items-center gap-2 rounded-md px-3 py-2 text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
@@ -221,7 +216,6 @@ const formatPrice = (price) => {
                         </DropdownMenu>
                     </div>
 
-                    <!-- Mobile Menu Button -->
                     <div class="flex items-center sm:hidden">
                         <Button
                             variant="ghost"
@@ -254,7 +248,6 @@ const formatPrice = (price) => {
                     </div>
                 </div>
 
-                <!-- Mobile Navigation -->
                 <div
                     v-show="showingNavigationDropdown"
                     class="border-t border-slate-800 py-2 sm:hidden"
@@ -349,7 +342,6 @@ const formatPrice = (price) => {
             </div>
         </nav>
 
-        <!-- Page Content -->
         <main class="min-h-[calc(100vh-3rem)]">
             <slot />
         </main>

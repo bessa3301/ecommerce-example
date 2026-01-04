@@ -52,7 +52,6 @@ const removeItem = (itemId) => {
             <h1 class="mb-8 text-3xl font-bold text-white">Shopping Cart</h1>
             <Card v-if="cart.items.length > 0" class="border-slate-800 bg-slate-900">
                 <CardContent class="p-6">
-                        <!-- Cart Items -->
                         <div class="space-y-6">
                             <div
                                 v-for="item in cart.items"
@@ -75,7 +74,6 @@ const removeItem = (itemId) => {
                                 </div>
 
                                 <div class="flex items-center gap-4">
-                                    <!-- Quantity Controls -->
                                     <div class="flex items-center gap-2">
                                         <Button
                                             @click="updateQuantity(item, item.quantity - 1)"
@@ -100,14 +98,12 @@ const removeItem = (itemId) => {
                                         </Button>
                                     </div>
 
-                                    <!-- Subtotal -->
                                     <div class="w-24 text-right">
                                         <p class="text-lg font-semibold text-white">
                                             {{ formatPrice(item.subtotal) }}
                                         </p>
                                     </div>
 
-                                    <!-- Remove Button -->
                                     <Button
                                         @click="removeItem(item.id)"
                                         size="sm"
@@ -119,7 +115,6 @@ const removeItem = (itemId) => {
                             </div>
                         </div>
 
-                        <!-- Cart Total -->
                         <div class="mt-8 border-t border-slate-800 pt-6">
                             <div class="flex items-center justify-between">
                                 <span class="text-xl font-semibold text-white">
@@ -131,7 +126,6 @@ const removeItem = (itemId) => {
                             </div>
                         </div>
 
-                        <!-- Actions -->
                         <div class="mt-6 flex gap-4">
                             <Link :href="route('products.index')">
                                 <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">Continue Shopping</Button>
@@ -143,7 +137,6 @@ const removeItem = (itemId) => {
                     </CardContent>
                 </Card>
 
-                <!-- Empty Cart -->
                 <Card v-else class="border-slate-800 bg-slate-900">
                     <CardContent class="p-12 text-center">
                         <svg

@@ -54,7 +54,6 @@ class CartController extends Controller
         $product = Product::findOrFail($request->product_id);
         $cart = auth()->user()->getOrCreateCart();
 
-        // Check stock availability
         $existingItem = $cart->items()->where('product_id', $product->id)->first();
         $requestedQuantity = $request->quantity;
         $currentQuantity = $existingItem ? $existingItem->quantity : 0;
@@ -81,7 +80,6 @@ class CartController extends Controller
 
     public function update(Request $request, CartItem $cartItem)
     {
-        // Ensure the cart item belongs to the authenticated user
         if ($cartItem->cart->user_id !== auth()->id()) {
             abort(403);
         }
@@ -105,7 +103,6 @@ class CartController extends Controller
 
     public function destroy(CartItem $cartItem)
     {
-        // Ensure the cart item belongs to the authenticated user
         if ($cartItem->cart->user_id !== auth()->id()) {
             abort(403);
         }
@@ -162,7 +159,6 @@ class CartController extends Controller
             ]);
         }
 
-        // Validate stock availability
         foreach ($cart->items as $item) {
             if ($item->quantity > $item->product->stock_quantity) {
                 return redirect()->route('cart.index')->withErrors([
@@ -172,13 +168,11 @@ class CartController extends Controller
         }
 
         DB::transaction(function () use ($cart) {
-            // Create order
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'total' => $cart->total,
             ]);
 
-            // Create order items and reduce stock
             foreach ($cart->items as $cartItem) {
                 OrderItem::create([
                     'order_id' => $order->id,
@@ -188,17 +182,14 @@ class CartController extends Controller
                     'subtotal' => $cartItem->quantity * $cartItem->product->price,
                 ]);
 
-                // Reduce stock
                 $cartItem->product->decrement('stock_quantity', $cartItem->quantity);
 
-                // Check if product is now low stock and dispatch notification
                 $cartItem->product->refresh();
                 if ($cartItem->product->isLowStock()) {
                     NotifyLowStock::dispatch($cartItem->product);
                 }
             }
 
-            // Clear cart
             $cart->items()->delete();
         });
 

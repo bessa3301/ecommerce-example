@@ -45,7 +45,6 @@ const submit = () => {
                     </CardHeader>
                     <CardContent>
                         <form @submit.prevent="submit" class="space-y-6">
-                            <!-- Current Image Preview -->
                             <div v-if="product.image">
                                 <label class="block text-sm font-medium text-slate-300 mb-2">
                                     Current Image
@@ -59,7 +58,6 @@ const submit = () => {
                                 </div>
                             </div>
 
-                            <!-- Name -->
                             <div class="space-y-2">
                                 <Label for="name">Product Name</Label>
                                 <Input
@@ -76,7 +74,6 @@ const submit = () => {
                                 </div>
                             </div>
 
-                            <!-- Price -->
                             <div class="space-y-2">
                                 <Label for="price">Price</Label>
                                 <Input
@@ -95,7 +92,6 @@ const submit = () => {
                                 </div>
                             </div>
 
-                            <!-- Stock Quantity -->
                             <div class="space-y-2">
                                 <Label for="stock_quantity">Stock Quantity</Label>
                                 <Input
@@ -113,7 +109,6 @@ const submit = () => {
                                 </div>
                             </div>
 
-                            <!-- Image -->
                             <div class="space-y-2">
                                 <Label for="image">New Product Image (leave empty to keep current)</Label>
                                 <input
@@ -131,7 +126,6 @@ const submit = () => {
                                 </div>
                             </div>
 
-                            <!-- Actions -->
                             <div class="flex items-center justify-end gap-4 pt-4">
                                 <Link :href="route('admin.products.index')">
                                     <Button variant="outline" :disabled="form.processing" class="border-slate-700 text-slate-300 hover:bg-slate-800">

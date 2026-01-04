@@ -61,13 +61,11 @@ const formatPrice = (price) => {
     }).format(price);
 };
 
-// Format date for display
 const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric'     });
 };
 
-// Prepare chart data
 const chartData = computed(() => {
     return {
         labels: props.sales_chart_data.map((item) => formatDate(item.date)),
@@ -150,7 +148,6 @@ const chartOptions = {
                 </Link>
             </div>
 
-            <!-- Stats Grid -->
             <div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 <Card class="border-slate-800 bg-slate-900">
                     <div class="p-5">
@@ -282,7 +279,6 @@ const chartOptions = {
             </div>
 
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <!-- Recent Orders -->
                 <Card class="border-slate-800 bg-slate-900">
                     <CardContent>
                         <h3 class="mb-4 text-lg font-semibold text-white">
@@ -316,7 +312,6 @@ const chartOptions = {
                     </CardContent>
                 </Card>
 
-                <!-- Top Products -->
                 <Card class="border-slate-800 bg-slate-900">
                     <CardContent>
                         <h3 class="mb-4 text-lg font-semibold text-white">
@@ -348,7 +343,6 @@ const chartOptions = {
                 </Card>
             </div>
 
-            <!-- Sales Chart -->
             <Card class="mt-6 border-slate-800 bg-slate-900">
                 <CardContent>
                     <h3 class="mb-4 text-lg font-semibold text-white">
@@ -363,7 +357,6 @@ const chartOptions = {
                 </CardContent>
             </Card>
 
-            <!-- Low Stock Products -->
             <Card class="mt-6 border-slate-800 bg-slate-900">
                 <CardContent>
                     <div class="mb-4 flex items-center justify-between">

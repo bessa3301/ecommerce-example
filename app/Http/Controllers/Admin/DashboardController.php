@@ -15,13 +15,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Sales statistics
         $totalRevenue = Order::sum('total');
         $totalOrders = Order::count();
         $totalCustomers = User::where('is_admin', false)->count();
         $totalProducts = Product::count();
 
-        // Recent orders
         $recentOrders = Order::with('user', 'items.product')
             ->latest()
             ->limit(10)
@@ -36,7 +34,6 @@ class DashboardController extends Controller
                 ];
             });
 
-        // Top selling products
         $topProducts = OrderItem::select('product_id', DB::raw('SUM(quantity) as total_sold'), DB::raw('SUM(subtotal) as total_revenue'))
             ->with('product')
             ->groupBy('product_id')
@@ -55,7 +52,6 @@ class DashboardController extends Controller
             })
             ->values();
 
-        // Low stock products
         $lowStockProducts = Product::where('stock_quantity', '<=', 10)
             ->orderBy('stock_quantity')
             ->get()
@@ -67,7 +63,6 @@ class DashboardController extends Controller
                 ];
             });
 
-        // Sales chart data (last 7 days)
         $salesChartData = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total) as revenue'))
             ->where('created_at', '>=', now()->subDays(7))
             ->groupBy('date')

@@ -14,35 +14,27 @@ class SendDailySalesReport implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Execute the job.
-     */
     public function handle(): void
     {
-        // Get admin user
         $admin = User::where('email', 'admin@example.com')->first();
 
         if (!$admin) {
             return;
         }
 
-        // Get today's date range
         $today = now()->startOfDay();
         $tomorrow = now()->copy()->addDay()->startOfDay();
 
-        // Get all orders from today
         $orders = Order::whereBetween('created_at', [$today, $tomorrow])
             ->with('items.product')
             ->get();
 
-        // Calculate sales data
         $totalOrders = $orders->count();
         $totalRevenue = $orders->sum('total');
         $totalItemsSold = $orders->sum(function ($order) {
             return $order->items->sum('quantity');
         });
 
-        // Get top selling products
         $productSales = OrderItem::whereBetween('created_at', [$today, $tomorrow])
             ->selectRaw('product_id, SUM(quantity) as total_quantity, SUM(subtotal) as total_revenue')
             ->groupBy('product_id')

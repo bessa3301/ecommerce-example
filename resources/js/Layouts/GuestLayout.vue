@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 
 <template>
     <div class="min-h-screen bg-slate-950">
-        <!-- Compact Navbar for Guests -->
         <nav class="border-b border-slate-800 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/75">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-12 items-center justify-between">

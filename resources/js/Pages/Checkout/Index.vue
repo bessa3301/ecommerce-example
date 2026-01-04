@@ -21,7 +21,6 @@ const formatPrice = (price) => {
     }).format(price);
 };
 
-// Format credit card number with spaces
 const formatCardNumber = (value) => {
     const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
     const matches = v.match(/\d{4,16}/g);
@@ -37,7 +36,6 @@ const formatCardNumber = (value) => {
     }
 };
 
-// Format expiry date as MM/YY
 const formatExpiryDate = (value) => {
     const v = value.replace(/\D/g, '');
     if (v.length >= 2) {
@@ -46,7 +44,6 @@ const formatExpiryDate = (value) => {
     return v;
 };
 
-// Initialize with demo values
 const form = useForm({
     card_number: '9999999999999999',
     card_holder: '',
@@ -77,7 +74,6 @@ const handleCvvInput = (event) => {
 };
 
 const submit = () => {
-    // Validate the form
     const cardNumberDigits = form.card_number.replace(/\s/g, '');
     if (!cardNumberDigits || cardNumberDigits.length !== 16) {
         form.setError('card_number', 'Please enter a valid 16-digit card number');
@@ -89,7 +85,6 @@ const submit = () => {
         return;
     }
     
-    // Accept MM/YY format (including demo values like 99/99)
     const expiryDigits = form.expiry_date.replace(/\//g, '');
     if (!expiryDigits || expiryDigits.length !== 4) {
         form.setError('expiry_date', 'Please enter a valid expiry date (MM/YY)');
@@ -101,7 +96,6 @@ const submit = () => {
         return;
     }
 
-    // Process checkout (this is a mock checkout, so we don't actually process payment)
     form.post(route('cart.checkout'), {
         preserveScroll: true,
     });
@@ -116,7 +110,6 @@ const submit = () => {
             <h1 class="mb-8 text-3xl font-bold text-white">Checkout</h1>
 
             <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-                <!-- Payment Form -->
                 <div class="lg:col-span-2">
                     <Card class="border-slate-800 bg-slate-900">
                         <CardHeader>
@@ -132,7 +125,6 @@ const submit = () => {
                         </CardHeader>
                         <CardContent>
                             <form @submit.prevent="submit" class="space-y-6">
-                                <!-- Card Number -->
                                 <div class="space-y-2">
                                     <Label for="card_number" class="text-white">Card Number</Label>
                                     <Input
@@ -150,7 +142,6 @@ const submit = () => {
                                     </p>
                                 </div>
 
-                                <!-- Card Holder Name -->
                                 <div class="space-y-2">
                                     <Label for="card_holder" class="text-white">Card Holder Name</Label>
                                     <Input
@@ -166,7 +157,6 @@ const submit = () => {
                                     </p>
                                 </div>
 
-                                <!-- Expiry and CVV -->
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="space-y-2">
                                         <Label for="expiry_date" class="text-white">Expiry Date</Label>
@@ -203,7 +193,6 @@ const submit = () => {
                                     </div>
                                 </div>
 
-                                <!-- Submit Button -->
                                 <div class="pt-4">
                                     <Button
                                         type="submit"
@@ -218,7 +207,6 @@ const submit = () => {
                     </Card>
                 </div>
 
-                <!-- Order Summary -->
                 <div class="lg:col-span-1">
                     <Card class="border-slate-800 bg-slate-900">
                         <CardHeader>
@@ -226,7 +214,6 @@ const submit = () => {
                         </CardHeader>
                         <CardContent>
                             <div class="space-y-4">
-                                <!-- Cart Items -->
                                 <div class="space-y-3">
                                     <div
                                         v-for="item in cart.items"
@@ -247,10 +234,8 @@ const submit = () => {
                                     </div>
                                 </div>
 
-                                <!-- Divider -->
                                 <div class="border-t border-slate-800"></div>
 
-                                <!-- Total -->
                                 <div class="flex items-center justify-between">
                                     <span class="text-lg font-semibold text-white">
                                         Total:
@@ -261,7 +246,6 @@ const submit = () => {
                                 </div>
                             </div>
 
-                            <!-- Back to Cart -->
                             <div class="mt-6">
                                 <Link :href="route('cart.index')">
                                     <Button

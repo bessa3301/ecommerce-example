@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class HistoricDataSeeder extends Seeder
 {
-    /**
-     * Seed historic sales and customer data.
-     */
     public function run(): void
     {
         
