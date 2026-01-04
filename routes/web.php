@@ -10,6 +10,7 @@ use Inertia\Inertia;
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/all', [ProductController::class, 'all'])->name('products.all');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/dashboard', function () {

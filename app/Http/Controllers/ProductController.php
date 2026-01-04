@@ -17,6 +17,15 @@ class ProductController extends Controller
         ]);
     }
 
+    public function all()
+    {
+        $products = Product::all();
+
+        return Inertia::render('Products/All', [
+            'products' => $products,
+        ]);
+    }
+
     public function show(Product $product)
     {
         return Inertia::render('Products/Show', [

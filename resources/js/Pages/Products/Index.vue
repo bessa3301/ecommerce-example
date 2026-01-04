@@ -55,15 +55,15 @@ const moreProducts = computed(() => {
         :is="$page.props.auth.user ? UserLayout : GuestLayout"
     >
         <div class="min-h-screen">
-            <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900">
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxRTIzMkYiIGZpbGwtb3BhY2l0eT0iMC40Ij48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-20"></div>
-                <div class="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/home-bg.webp');">
+                <div class="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-blue-950/70 to-slate-900/80"></div>
+                <div class="relative mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8 sm:py-40 lg:py-56">
                     <div class="text-center">
                         <h1 class="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-                            Discover Premium Products
+                            Premium Laptops & Computer Supplies
                         </h1>
                         <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-                            Explore our curated collection of high-quality products designed to elevate your experience
+                            Your one-stop marketplace for laptops, accessories, and all your computing needs. Find the perfect tech solution for work, gaming, or creativity.
                         </p>
                         <div class="mt-10 flex items-center justify-center gap-x-6">
                             <Link :href="route('register')" v-if="!$page.props.auth.user">
@@ -76,7 +76,7 @@ const moreProducts = computed(() => {
                                     Sign In
                                 </Button>
                             </Link>
-                            <Link :href="route('products.index')" v-else>
+                            <Link :href="route('products.all')" v-else>
                                 <Button size="lg" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-6 text-lg">
                                     Shop Now
                                 </Button>
