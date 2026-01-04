@@ -46,263 +46,264 @@ const formatPrice = (price) => {
                     <Button class="bg-blue-500 hover:bg-blue-600 text-white">Manage Products</Button>
                 </Link>
             </div>
-                <!-- Stats Grid -->
-                <div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    <Card class="border-slate-800 bg-slate-900">
-                        <div class="p-5">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <svg
-                                        class="h-6 w-6 text-slate-400"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 0v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div class="ml-5 w-0 flex-1">
-                                    <dl>
-                                        <dt class="text-sm font-medium text-slate-400 truncate">
-                                            Total Revenue
-                                        </dt>
-                                        <dd class="text-lg font-semibold text-white">
-                                            {{ formatPrice(stats.total_revenue) }}
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </Card>
 
-                    <Card class="border-slate-800 bg-slate-900">
-                        <div class="p-5">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <svg
-                                        class="h-6 w-6 text-slate-400"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div class="ml-5 w-0 flex-1">
-                                    <dl>
-                                        <dt class="text-sm font-medium text-slate-400 truncate">
-                                            Total Orders
-                                        </dt>
-                                        <dd class="text-lg font-semibold text-white">
-                                            {{ stats.total_orders }}
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </Card>
-
-                    <Card class="border-slate-800 bg-slate-900">
-                        <div class="p-5">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <svg
-                                        class="h-6 w-6 text-slate-400"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div class="ml-5 w-0 flex-1">
-                                    <dl>
-                                        <dt class="text-sm font-medium text-slate-400 truncate">
-                                            Total Customers
-                                        </dt>
-                                        <dd class="text-lg font-semibold text-white">
-                                            {{ stats.total_customers }}
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </Card>
-
-                    <Card class="border-slate-800 bg-slate-900">
-                        <div class="p-5">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <svg
-                                        class="h-6 w-6 text-slate-400"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                                        />
-                                    </svg>
-                                </div>
-                                <div class="ml-5 w-0 flex-1">
-                                    <dl>
-                                        <dt class="text-sm font-medium text-slate-400 truncate">
-                                            Total Products
-                                        </dt>
-                                        <dd class="text-lg font-semibold text-white">
-                                            {{ stats.total_products }}
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </Card>
-                </div>
-
-                <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                    <!-- Recent Orders -->
-                    <Card class="border-slate-800 bg-slate-900">
-                        <CardContent>
-                            <h3 class="mb-4 text-lg font-semibold text-white">
-                                Recent Orders
-                            </h3>
-                            <div v-if="recent_orders.length > 0" class="space-y-4">
-                                <div
-                                    v-for="order in recent_orders"
-                                    :key="order.id"
-                                    class="flex items-center justify-between border-b border-slate-800 pb-4 last:border-0"
+            <!-- Stats Grid -->
+            <div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <Card class="border-slate-800 bg-slate-900">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    class="h-6 w-6 text-slate-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
                                 >
-                                    <div>
-                                        <p class="text-sm font-medium text-white">
-                                            Order #{{ order.id }}
-                                        </p>
-                                        <p class="text-sm text-slate-400">
-                                            {{ order.user_name }} • {{ order.items_count }} items
-                                        </p>
-                                        <p class="text-xs text-slate-500">
-                                            {{ order.created_at }}
-                                        </p>
-                                    </div>
-                                    <p class="text-sm font-semibold text-blue-400">
-                                        {{ formatPrice(order.total) }}
-                                    </p>
-                                </div>
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 0v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                </svg>
                             </div>
-                            <p v-else class="text-sm text-slate-400">
-                                No orders yet.
-                            </p>
-                        </CardContent>
-                    </Card>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-slate-400 truncate">
+                                        Total Revenue
+                                    </dt>
+                                    <dd class="text-lg font-semibold text-white">
+                                        {{ formatPrice(stats.total_revenue) }}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
 
-                    <!-- Top Products -->
-                    <Card class="border-slate-800 bg-slate-900">
-                        <CardContent>
-                            <h3 class="mb-4 text-lg font-semibold text-white">
-                                Top Selling Products
-                            </h3>
-                            <div v-if="top_products.length > 0" class="space-y-4">
-                                <div
-                                    v-for="(product, index) in top_products"
-                                    :key="index"
-                                    class="flex items-center justify-between border-b border-slate-800 pb-4 last:border-0"
+                <Card class="border-slate-800 bg-slate-900">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    class="h-6 w-6 text-slate-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
                                 >
-                                    <div>
-                                        <p class="text-sm font-medium text-white">
-                                            {{ product.name }}
-                                        </p>
-                                        <p class="text-xs text-slate-400">
-                                            {{ product.total_sold }} sold
-                                        </p>
-                                    </div>
-                                    <p class="text-sm font-semibold text-blue-400">
-                                        {{ formatPrice(product.total_revenue) }}
-                                    </p>
-                                </div>
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                                    />
+                                </svg>
                             </div>
-                            <p v-else class="text-sm text-slate-400">
-                                No sales data yet.
-                            </p>
-                        </CardContent>
-                    </Card>
-                </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-slate-400 truncate">
+                                        Total Orders
+                                    </dt>
+                                    <dd class="text-lg font-semibold text-white">
+                                        {{ stats.total_orders }}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
 
-                <!-- Quick Actions -->
-                <Card class="mt-6 border-slate-800 bg-slate-900">
+                <Card class="border-slate-800 bg-slate-900">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    class="h-6 w-6 text-slate-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-slate-400 truncate">
+                                        Total Customers
+                                    </dt>
+                                    <dd class="text-lg font-semibold text-white">
+                                        {{ stats.total_customers }}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
+
+                <Card class="border-slate-800 bg-slate-900">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    class="h-6 w-6 text-slate-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-slate-400 truncate">
+                                        Total Products
+                                    </dt>
+                                    <dd class="text-lg font-semibold text-white">
+                                        {{ stats.total_products }}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <!-- Recent Orders -->
+                <Card class="border-slate-800 bg-slate-900">
                     <CardContent>
                         <h3 class="mb-4 text-lg font-semibold text-white">
-                            Quick Actions
+                            Recent Orders
                         </h3>
-                        <div class="flex flex-wrap gap-4">
-                            <Link :href="route('admin.products.create')">
-                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">+ Add New Product</Button>
-                            </Link>
-                            <Link :href="route('admin.products.index')">
-                                <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">View All Products</Button>
-                            </Link>
+                        <div v-if="recent_orders.length > 0" class="space-y-4">
+                            <div
+                                v-for="order in recent_orders"
+                                :key="order.id"
+                                class="flex items-center justify-between border-b border-slate-800 pb-4 last:border-0"
+                            >
+                                <div>
+                                    <p class="text-sm font-medium text-white">
+                                        Order #{{ order.id }}
+                                    </p>
+                                    <p class="text-sm text-slate-400">
+                                        {{ order.user_name }} • {{ order.items_count }} items
+                                    </p>
+                                    <p class="text-xs text-slate-500">
+                                        {{ order.created_at }}
+                                    </p>
+                                </div>
+                                <p class="text-sm font-semibold text-blue-400">
+                                    {{ formatPrice(order.total) }}
+                                </p>
+                            </div>
                         </div>
+                        <p v-else class="text-sm text-slate-400">
+                            No orders yet.
+                        </p>
                     </CardContent>
                 </Card>
 
-                <!-- Low Stock Products -->
-                <Card class="mt-6 border-slate-800 bg-slate-900">
+                <!-- Top Products -->
+                <Card class="border-slate-800 bg-slate-900">
                     <CardContent>
-                        <div class="mb-4 flex items-center justify-between">
-                            <h3 class="text-lg font-semibold text-white">
-                                Low Stock Products
-                            </h3>
-                            <Link
-                                :href="route('admin.products.index')"
-                                class="text-sm text-slate-400 hover:text-blue-400"
-                            >
-                                Manage Products →
-                            </Link>
-                        </div>
-                        <div v-if="low_stock_products.length > 0" class="space-y-4">
+                        <h3 class="mb-4 text-lg font-semibold text-white">
+                            Top Selling Products
+                        </h3>
+                        <div v-if="top_products.length > 0" class="space-y-4">
                             <div
-                                v-for="product in low_stock_products"
-                                :key="product.id"
+                                v-for="(product, index) in top_products"
+                                :key="index"
                                 class="flex items-center justify-between border-b border-slate-800 pb-4 last:border-0"
                             >
                                 <div>
                                     <p class="text-sm font-medium text-white">
                                         {{ product.name }}
                                     </p>
-                                    <p class="text-xs text-red-400">
-                                        Only {{ product.stock_quantity }} left in stock
+                                    <p class="text-xs text-slate-400">
+                                        {{ product.total_sold }} sold
                                     </p>
                                 </div>
-                                <Link
-                                    :href="route('admin.products.edit', product.id)"
-                                    class="text-sm text-slate-400 hover:text-blue-400"
-                                >
-                                    Edit →
-                                </Link>
+                                <p class="text-sm font-semibold text-blue-400">
+                                    {{ formatPrice(product.total_revenue) }}
+                                </p>
                             </div>
                         </div>
                         <p v-else class="text-sm text-slate-400">
-                            All products are well stocked.
+                            No sales data yet.
                         </p>
                     </CardContent>
                 </Card>
             </div>
+
+            <!-- Quick Actions -->
+            <Card class="mt-6 border-slate-800 bg-slate-900">
+                <CardContent>
+                    <h3 class="mb-4 text-lg font-semibold text-white">
+                        Quick Actions
+                    </h3>
+                    <div class="flex flex-wrap gap-4">
+                        <Link :href="route('admin.products.create')">
+                            <Button class="bg-blue-500 hover:bg-blue-600 text-white">+ Add New Product</Button>
+                        </Link>
+                        <Link :href="route('admin.products.index')">
+                            <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">View All Products</Button>
+                        </Link>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Low Stock Products -->
+            <Card class="mt-6 border-slate-800 bg-slate-900">
+                <CardContent>
+                    <div class="mb-4 flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-white">
+                            Low Stock Products
+                        </h3>
+                        <Link
+                            :href="route('admin.products.index')"
+                            class="text-sm text-slate-400 hover:text-blue-400"
+                        >
+                            Manage Products →
+                        </Link>
+                    </div>
+                    <div v-if="low_stock_products.length > 0" class="space-y-4">
+                        <div
+                            v-for="product in low_stock_products"
+                            :key="product.id"
+                            class="flex items-center justify-between border-b border-slate-800 pb-4 last:border-0"
+                        >
+                            <div>
+                                <p class="text-sm font-medium text-white">
+                                    {{ product.name }}
+                                </p>
+                                <p class="text-xs text-red-400">
+                                    Only {{ product.stock_quantity }} left in stock
+                                </p>
+                            </div>
+                            <Link
+                                :href="route('admin.products.edit', product.id)"
+                                class="text-sm text-slate-400 hover:text-blue-400"
+                            >
+                                Edit →
+                            </Link>
+                        </div>
+                    </div>
+                    <p v-else class="text-sm text-slate-400">
+                        All products are well stocked.
+                    </p>
+                </CardContent>
+            </Card>
+        </div>
     </AdminLayout>
 </template>
 
