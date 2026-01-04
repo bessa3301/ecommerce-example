@@ -1,10 +1,35 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Line } from 'vue-chartjs';
+import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    TimeScale,
+} from 'chart.js';
+import 'chartjs-adapter-date-fns';
 
-defineProps({
+ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    TimeScale
+);
+
+const props = defineProps({
     stats: {
         type: Object,
         required: true,
@@ -32,6 +57,92 @@ const formatPrice = (price) => {
         style: 'currency',
         currency: 'USD',
     }).format(price);
+};
+
+// Format date for display
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+};
+
+// Prepare chart data
+const chartData = computed(() => {
+    return {
+        datasets: [
+            {
+                label: 'Sales Revenue',
+                fill: true,
+                backgroundColor: 'rgba(75, 192, 192, 0.4)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                data: props.sales_chart_data.map((item) => ({
+                    x: item.revenue,
+                    y: item.date,
+                })),
+            },
+        ],
+    };
+});
+
+const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            display: true,
+            labels: {
+                color: '#cbd5e1',
+            },
+        },
+        tooltip: {
+            callbacks: {
+                label: function (context) {
+                    const date = context.parsed.y;
+                    const revenue = context.parsed.x;
+                    return `${formatDate(date)}: ${formatPrice(revenue)}`;
+                },
+            },
+        },
+    },
+    scales: {
+        x: {
+            type: 'linear',
+            title: {
+                display: true,
+                text: 'Sales Revenue',
+                color: '#cbd5e1',
+            },
+            ticks: {
+                color: '#cbd5e1',
+                callback: function (value) {
+                    return formatPrice(value);
+                },
+            },
+            grid: {
+                color: 'rgba(51, 65, 85, 0.5)',
+            },
+        },
+        y: {
+            type: 'time',
+            time: {
+                unit: 'day',
+                displayFormats: {
+                    day: 'MMM d',
+                },
+            },
+            title: {
+                display: true,
+                text: 'Date',
+                color: '#cbd5e1',
+            },
+            ticks: {
+                color: '#cbd5e1',
+            },
+            grid: {
+                color: 'rgba(51, 65, 85, 0.5)',
+            },
+        },
+    },
 };
 </script>
 
@@ -245,20 +356,18 @@ const formatPrice = (price) => {
                 </Card>
             </div>
 
-            <!-- Quick Actions -->
+            <!-- Sales Chart -->
             <Card class="mt-6 border-slate-800 bg-slate-900">
                 <CardContent>
                     <h3 class="mb-4 text-lg font-semibold text-white">
-                        Quick Actions
+                        Sales Overview (Last 7 Days)
                     </h3>
-                    <div class="flex flex-wrap gap-4">
-                        <Link :href="route('admin.products.create')">
-                            <Button class="bg-blue-500 hover:bg-blue-600 text-white">+ Add New Product</Button>
-                        </Link>
-                        <Link :href="route('admin.products.index')">
-                            <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">View All Products</Button>
-                        </Link>
+                    <div v-if="sales_chart_data.length > 0" class="h-80">
+                        <Line :data="chartData" :options="chartOptions" />
                     </div>
+                    <p v-else class="text-sm text-slate-400">
+                        No sales data available for the last 7 days.
+                    </p>
                 </CardContent>
             </Card>
 
