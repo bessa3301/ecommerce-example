@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import ApplicationLogo from '@/components/ApplicationLogo.vue';
 import { Link, router } from '@inertiajs/vue3';
 import {
@@ -12,8 +12,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { useViewMode } from '@/composables/useViewMode';
 
 const showingNavigationDropdown = ref(false);
+const { showAdminView, isAdmin, switchToAdminView } = useViewMode();
 
 const handleLogout = () => {
     router.post(route('logout'));
@@ -67,33 +69,63 @@ const formatPrice = (price) => {
                                     Cart
                                 </Link>
                             </Button>
-                            <template v-if="$page.props.auth.user?.is_admin">
+                            <template v-if="isAdmin">
                                 <Button
-                                    as-child
-                                    variant="ghost"
+                                    v-if="!showAdminView"
+                                    @click="switchToAdminView"
+                                    variant="outline"
                                     size="sm"
-                                    :class="cn(
-                                        'text-slate-300 hover:text-white hover:bg-slate-800',
-                                        route().current('admin.dashboard') && 'text-blue-400 bg-slate-800'
-                                    )"
+                                    class="border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white"
                                 >
-                                    <Link :href="route('admin.dashboard')">
-                                        Dashboard
-                                    </Link>
+                                    <svg
+                                        class="mr-1.5 h-4 w-4"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                        />
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                        />
+                                    </svg>
+                                    Admin View
                                 </Button>
-                                <Button
-                                    as-child
-                                    variant="ghost"
-                                    size="sm"
-                                    :class="cn(
-                                        'text-slate-300 hover:text-white hover:bg-slate-800',
-                                        route().current('admin.products.*') && 'text-blue-400 bg-slate-800'
-                                    )"
-                                >
-                                    <Link :href="route('admin.products.index')">
-                                        Manage Products
-                                    </Link>
-                                </Button>
+                                <template v-else>
+                                    <Button
+                                        as-child
+                                        variant="ghost"
+                                        size="sm"
+                                        :class="cn(
+                                            'text-slate-300 hover:text-white hover:bg-slate-800',
+                                            route().current('admin.dashboard') && 'text-blue-400 bg-slate-800'
+                                        )"
+                                    >
+                                        <Link :href="route('admin.dashboard')">
+                                            Dashboard
+                                        </Link>
+                                    </Button>
+                                    <Button
+                                        as-child
+                                        variant="ghost"
+                                        size="sm"
+                                        :class="cn(
+                                            'text-slate-300 hover:text-white hover:bg-slate-800',
+                                            route().current('admin.products.*') && 'text-blue-400 bg-slate-800'
+                                        )"
+                                    >
+                                        <Link :href="route('admin.products.index')">
+                                            Manage Products
+                                        </Link>
+                                    </Button>
+                                </template>
                             </template>
                         </div>
                     </div>
@@ -159,18 +191,27 @@ const formatPrice = (price) => {
                                         Profile
                                     </Link>
                                 </DropdownMenuItem>
-                                <template v-if="$page.props.auth.user?.is_admin">
+                                <template v-if="isAdmin">
                                     <DropdownMenuSeparator class="bg-slate-700" />
-                                    <DropdownMenuItem as-child class="text-slate-300 hover:text-white hover:bg-slate-700">
-                                        <Link :href="route('admin.dashboard')" class="w-full">
-                                            Admin Dashboard
-                                        </Link>
+                                    <DropdownMenuItem 
+                                        v-if="!showAdminView"
+                                        @click="switchToAdminView"
+                                        class="text-blue-400 hover:text-white hover:bg-blue-500"
+                                    >
+                                        Switch to Admin View
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem as-child class="text-slate-300 hover:text-white hover:bg-slate-700">
-                                        <Link :href="route('admin.products.index')" class="w-full">
-                                            Manage Products
-                                        </Link>
-                                    </DropdownMenuItem>
+                                    <template v-else>
+                                        <DropdownMenuItem as-child class="text-slate-300 hover:text-white hover:bg-slate-700">
+                                            <Link :href="route('admin.dashboard')" class="w-full">
+                                                Admin Dashboard
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem as-child class="text-slate-300 hover:text-white hover:bg-slate-700">
+                                            <Link :href="route('admin.products.index')" class="w-full">
+                                                Manage Products
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    </template>
                                 </template>
                                 <DropdownMenuSeparator class="bg-slate-700" />
                                 <DropdownMenuItem @click="handleLogout" class="text-slate-300 hover:text-white hover:bg-slate-700">
@@ -245,33 +286,63 @@ const formatPrice = (price) => {
                                 Cart
                             </Link>
                         </Button>
-                        <template v-if="$page.props.auth.user?.is_admin">
+                        <template v-if="isAdmin">
                             <Button
-                                as-child
-                                variant="ghost"
+                                v-if="!showAdminView"
+                                @click="switchToAdminView"
+                                variant="outline"
                                 size="sm"
-                                class="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800"
-                                :class="cn(
-                                    route().current('admin.dashboard') && 'text-blue-400 bg-slate-800'
-                                )"
+                                class="w-full justify-start border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white"
                             >
-                                <Link :href="route('admin.dashboard')">
-                                    Dashboard
-                                </Link>
+                                <svg
+                                    class="mr-1.5 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                    />
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                    />
+                                </svg>
+                                Admin View
                             </Button>
-                            <Button
-                                as-child
-                                variant="ghost"
-                                size="sm"
-                                class="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800"
-                                :class="cn(
-                                    route().current('admin.products.*') && 'text-blue-400 bg-slate-800'
-                                )"
-                            >
-                                <Link :href="route('admin.products.index')">
-                                    Manage Products
-                                </Link>
-                            </Button>
+                            <template v-else>
+                                <Button
+                                    as-child
+                                    variant="ghost"
+                                    size="sm"
+                                    class="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800"
+                                    :class="cn(
+                                        route().current('admin.dashboard') && 'text-blue-400 bg-slate-800'
+                                    )"
+                                >
+                                    <Link :href="route('admin.dashboard')">
+                                        Dashboard
+                                    </Link>
+                                </Button>
+                                <Button
+                                    as-child
+                                    variant="ghost"
+                                    size="sm"
+                                    class="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800"
+                                    :class="cn(
+                                        route().current('admin.products.*') && 'text-blue-400 bg-slate-800'
+                                    )"
+                                >
+                                    <Link :href="route('admin.products.index')">
+                                        Manage Products
+                                    </Link>
+                                </Button>
+                            </template>
                         </template>
                     </div>
                 </div>

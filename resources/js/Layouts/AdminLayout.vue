@@ -11,8 +11,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useViewMode } from '@/composables/useViewMode';
 
 const showingNavigationDropdown = ref(false);
+const { switchToCustomerView } = useViewMode();
 
 const handleLogout = () => {
     router.post(route('logout'));
@@ -61,14 +63,25 @@ const handleLogout = () => {
                                 </Link>
                             </Button>
                             <Button
-                                as-child
-                                variant="ghost"
+                                @click="switchToCustomerView"
+                                variant="outline"
                                 size="sm"
-                                class="text-slate-300 hover:text-white hover:bg-slate-800"
+                                class="border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
                             >
-                                <Link :href="route('products.index')">
-                                    View Store
-                                </Link>
+                                <svg
+                                    class="mr-1.5 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                                    />
+                                </svg>
+                                Customer View
                             </Button>
                         </div>
                     </div>
@@ -173,14 +186,25 @@ const handleLogout = () => {
                             </Link>
                         </Button>
                         <Button
-                            as-child
-                            variant="ghost"
+                            @click="switchToCustomerView"
+                            variant="outline"
                             size="sm"
-                            class="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800"
+                            class="w-full justify-start border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
                         >
-                            <Link :href="route('products.index')">
-                                View Store
-                            </Link>
+                            <svg
+                                class="mr-1.5 h-4 w-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                                />
+                            </svg>
+                            Customer View
                         </Button>
                     </div>
                 </div>
