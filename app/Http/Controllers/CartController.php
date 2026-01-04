@@ -149,7 +149,7 @@ class CartController extends Controller
                     'product_id' => $cartItem->product_id,
                     'quantity' => $cartItem->quantity,
                     'price' => $cartItem->product->price,
-                    'subtotal' => $cartItem->subtotal,
+                    'subtotal' => $cartItem->quantity * $cartItem->product->price,
                 ]);
 
                 // Reduce stock

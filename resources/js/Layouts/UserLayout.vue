@@ -67,6 +67,34 @@ const formatPrice = (price) => {
                                     Cart
                                 </Link>
                             </Button>
+                            <template v-if="$page.props.auth.user?.is_admin">
+                                <Button
+                                    as-child
+                                    variant="ghost"
+                                    size="sm"
+                                    :class="cn(
+                                        'text-slate-300 hover:text-white hover:bg-slate-800',
+                                        route().current('admin.dashboard') && 'text-blue-400 bg-slate-800'
+                                    )"
+                                >
+                                    <Link :href="route('admin.dashboard')">
+                                        Dashboard
+                                    </Link>
+                                </Button>
+                                <Button
+                                    as-child
+                                    variant="ghost"
+                                    size="sm"
+                                    :class="cn(
+                                        'text-slate-300 hover:text-white hover:bg-slate-800',
+                                        route().current('admin.products.*') && 'text-blue-400 bg-slate-800'
+                                    )"
+                                >
+                                    <Link :href="route('admin.products.index')">
+                                        Manage Products
+                                    </Link>
+                                </Button>
+                            </template>
                         </div>
                     </div>
 
@@ -131,6 +159,19 @@ const formatPrice = (price) => {
                                         Profile
                                     </Link>
                                 </DropdownMenuItem>
+                                <template v-if="$page.props.auth.user?.is_admin">
+                                    <DropdownMenuSeparator class="bg-slate-700" />
+                                    <DropdownMenuItem as-child class="text-slate-300 hover:text-white hover:bg-slate-700">
+                                        <Link :href="route('admin.dashboard')" class="w-full">
+                                            Admin Dashboard
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem as-child class="text-slate-300 hover:text-white hover:bg-slate-700">
+                                        <Link :href="route('admin.products.index')" class="w-full">
+                                            Manage Products
+                                        </Link>
+                                    </DropdownMenuItem>
+                                </template>
                                 <DropdownMenuSeparator class="bg-slate-700" />
                                 <DropdownMenuItem @click="handleLogout" class="text-slate-300 hover:text-white hover:bg-slate-700">
                                     Log Out
@@ -204,6 +245,34 @@ const formatPrice = (price) => {
                                 Cart
                             </Link>
                         </Button>
+                        <template v-if="$page.props.auth.user?.is_admin">
+                            <Button
+                                as-child
+                                variant="ghost"
+                                size="sm"
+                                class="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800"
+                                :class="cn(
+                                    route().current('admin.dashboard') && 'text-blue-400 bg-slate-800'
+                                )"
+                            >
+                                <Link :href="route('admin.dashboard')">
+                                    Dashboard
+                                </Link>
+                            </Button>
+                            <Button
+                                as-child
+                                variant="ghost"
+                                size="sm"
+                                class="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800"
+                                :class="cn(
+                                    route().current('admin.products.*') && 'text-blue-400 bg-slate-800'
+                                )"
+                            >
+                                <Link :href="route('admin.products.index')">
+                                    Manage Products
+                                </Link>
+                            </Button>
+                        </template>
                     </div>
                 </div>
             </div>

@@ -303,7 +303,6 @@ const formatPrice = (price) => {
                     </CardContent>
                 </Card>
             </div>
-        </div>
     </AdminLayout>
 </template>
 

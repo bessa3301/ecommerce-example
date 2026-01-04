@@ -29,8 +29,8 @@ class DashboardController extends Controller
             ->map(function ($order) {
                 return [
                     'id' => $order->id,
-                    'user_name' => $order->user->name,
-                    'total' => $order->total,
+                    'user_name' => $order->user ? $order->user->name : 'Deleted User',
+                    'total' => (float) $order->total,
                     'items_count' => $order->items->sum('quantity'),
                     'created_at' => $order->created_at->format('M d, Y H:i'),
                 ];
@@ -43,18 +43,29 @@ class DashboardController extends Controller
             ->orderByDesc('total_sold')
             ->limit(10)
             ->get()
+            ->filter(function ($item) {
+                return $item->product !== null;
+            })
             ->map(function ($item) {
                 return [
                     'name' => $item->product->name,
-                    'total_sold' => $item->total_sold,
-                    'total_revenue' => $item->total_revenue,
+                    'total_sold' => (int) $item->total_sold,
+                    'total_revenue' => (float) $item->total_revenue,
                 ];
-            });
+            })
+            ->values();
 
         // Low stock products
         $lowStockProducts = Product::where('stock_quantity', '<=', 10)
             ->orderBy('stock_quantity')
-            ->get();
+            ->get()
+            ->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'stock_quantity' => $product->stock_quantity,
+                ];
+            });
 
         // Sales chart data (last 7 days)
         $salesChartData = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total) as revenue'))
@@ -71,15 +82,15 @@ class DashboardController extends Controller
 
         return Inertia::render('Admin/Dashboard', [
             'stats' => [
-                'total_revenue' => $totalRevenue,
-                'total_orders' => $totalOrders,
-                'total_customers' => $totalCustomers,
-                'total_products' => $totalProducts,
+                'total_revenue' => (float) $totalRevenue,
+                'total_orders' => (int) $totalOrders,
+                'total_customers' => (int) $totalCustomers,
+                'total_products' => (int) $totalProducts,
             ],
-            'recent_orders' => $recentOrders,
+            'recent_orders' => $recentOrders->values(),
             'top_products' => $topProducts,
-            'low_stock_products' => $lowStockProducts,
-            'sales_chart_data' => $salesChartData,
+            'low_stock_products' => $lowStockProducts->values(),
+            'sales_chart_data' => $salesChartData->values(),
         ]);
     }
 }
