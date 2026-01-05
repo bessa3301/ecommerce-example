@@ -24,7 +24,7 @@ class DashboardController extends Controller
 
         $recentOrders = Order::with('user', 'items.product')
             ->latest()
-            ->limit(10)
+            ->limit(3)
             ->get()
             ->map(function ($order) {
                 return [
@@ -40,7 +40,7 @@ class DashboardController extends Controller
             ->with('product')
             ->groupBy('product_id')
             ->orderByDesc('total_sold')
-            ->limit(10)
+            ->limit(4)
             ->get()
             ->filter(function ($item) {
                 return $item->product !== null;
