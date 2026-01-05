@@ -15,8 +15,6 @@ services:
   schedule:
     image: kooldev/php:8.3-nginx
     command: ["php", "artisan", "schedule:work" ]
-    ports:
-      - "${KOOL_APP_PORT:-80}:80"
     environment:
       ASUSER: "${KOOL_ASUSER:-0}"
       UID: "${UID:-0}"
