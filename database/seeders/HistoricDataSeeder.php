@@ -72,14 +72,19 @@ class HistoricDataSeeder extends Seeder
                 $itemCount = rand(1, 5);
                 $selectedProducts = $products->random(min($itemCount, $products->count()));
                 
-                $orderTotal = 0;
+                $orderSubtotal = 0;
+                $orderVatAmount = 0;
                 $orderItems = [];
                 
                 foreach ($selectedProducts as $product) {
                     $quantity = rand(1, 3);
                     $price = $product->price;
+                    $vatRate = $product->vat_rate ?? 0;
                     $subtotal = $price * $quantity;
-                    $orderTotal += $subtotal;
+                    $vatAmount = $subtotal * ($vatRate / 100);
+                    
+                    $orderSubtotal += $subtotal;
+                    $orderVatAmount += $vatAmount;
                     
                     $orderItems[] = [
                         'product_id' => $product->id,
@@ -89,6 +94,8 @@ class HistoricDataSeeder extends Seeder
                     ];
                 }
                 
+                $orderTotal = $orderSubtotal + $orderVatAmount;
+                
                 
                 $orderTime = $orderDate->copy()
                     ->setHour(rand(8, 20))
@@ -97,6 +104,8 @@ class HistoricDataSeeder extends Seeder
                 
                 $order = Order::create([
                     'user_id' => $customer->id,
+                    'subtotal' => $orderSubtotal,
+                    'vat_amount' => $orderVatAmount,
                     'total' => $orderTotal,
                     'created_at' => $orderTime,
                     'updated_at' => $orderTime,
