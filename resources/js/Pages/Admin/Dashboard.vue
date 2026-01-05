@@ -309,37 +309,6 @@ const chartOptions = {
                     </div>
                 </Card>
 
-                <Card class="border-slate-800 bg-slate-900">
-                    <div class="p-5">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <svg
-                                    class="h-6 w-6 text-slate-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                                    />
-                                </svg>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-slate-400 truncate">
-                                        Total Products
-                                    </dt>
-                                    <dd class="text-lg font-semibold text-white">
-                                        {{ stats.total_products }}
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </Card>
             </div>
 
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
