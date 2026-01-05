@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 const form = useForm({
     name: '',
     price: '',
-    vat_rate: '20',
+    vat_rate: '19',
     stock_quantity: '',
     image: null,
 });

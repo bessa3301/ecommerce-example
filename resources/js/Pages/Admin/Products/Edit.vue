@@ -16,7 +16,7 @@ const props = defineProps({
 const form = useForm({
     name: props.product.name,
     price: props.product.price,
-    vat_rate: props.product.vat_rate ?? '20',
+    vat_rate: props.product.vat_rate ?? '19',
     stock_quantity: props.product.stock_quantity,
     image: null,
     _method: 'PATCH',
