@@ -35,10 +35,9 @@
             </div>
         </div>
 
-        <!-- Top Products -->
-        @if(count($salesData['top_products']) > 0)
+        @if(count($salesData['products_sold']) > 0)
         <div style="margin-top: 30px;">
-            <h2 style="margin: 0 0 15px 0; color: #333; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">Top Selling Products</h2>
+            <h2 style="margin: 0 0 15px 0; color: #333; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">All Products Sold Today</h2>
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr style="background-color: #f8f9fa;">
@@ -48,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($salesData['top_products'] as $product)
+                    @foreach($salesData['products_sold'] as $product)
                     <tr>
                         <td style="padding: 10px; border-bottom: 1px solid #dee2e6;">{{ $product['name'] }}</td>
                         <td style="padding: 10px; text-align: right; border-bottom: 1px solid #dee2e6;">{{ $product['quantity'] }}</td>

@@ -16,9 +16,10 @@ class SendDailySalesReport implements ShouldQueue
 
     public function handle(): void
     {
-        $admin = User::where('email', 'admin@example.com')->first();
+        // Get all admin users
+        $admins = User::where('is_admin', true)->get();
 
-        if (!$admin) {
+        if ($admins->isEmpty()) {
             return;
         }
 
@@ -40,7 +41,6 @@ class SendDailySalesReport implements ShouldQueue
             ->groupBy('product_id')
             ->with('product')
             ->orderByDesc('total_quantity')
-            ->limit(10)
             ->get();
 
         $salesData = [
@@ -48,7 +48,7 @@ class SendDailySalesReport implements ShouldQueue
             'total_orders' => $totalOrders,
             'total_revenue' => $totalRevenue,
             'total_items_sold' => $totalItemsSold,
-            'top_products' => $productSales->map(function ($item) {
+            'products_sold' => $productSales->map(function ($item) {
                 return [
                     'name' => $item->product->name,
                     'quantity' => $item->total_quantity,
@@ -57,6 +57,9 @@ class SendDailySalesReport implements ShouldQueue
             })->toArray(),
         ];
 
-        Mail::to($admin->email)->send(new DailySalesReport($salesData));
+        // Send email to all admin users
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new DailySalesReport($salesData));
+        }
     }
 }
