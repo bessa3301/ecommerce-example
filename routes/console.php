@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\NotifyLowStock;
 use App\Jobs\SendDailySalesReport;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -10,3 +11,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::job(new SendDailySalesReport)->dailyAt('18:00');
+Schedule::job(new NotifyLowStock)->dailyAt('09:00');

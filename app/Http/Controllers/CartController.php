@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\NotifyLowStock;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
@@ -220,11 +219,6 @@ class CartController extends Controller
                 ]);
 
                 $cartItem->product->decrement('stock_quantity', $cartItem->quantity);
-
-                $cartItem->product->refresh();
-                if ($cartItem->product->isLowStock()) {
-                    NotifyLowStock::dispatch($cartItem->product);
-                }
             }
 
             $cart->items()->delete();

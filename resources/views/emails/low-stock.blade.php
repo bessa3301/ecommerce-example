@@ -13,15 +13,21 @@
     <div style="background-color: #fff; padding: 20px; border: 1px solid #dee2e6; border-radius: 5px;">
         <p>Hello Admin,</p>
 
-        <p>The following product is running low on stock:</p>
+        @if($products->count() === 1)
+            <p>The following product is running low on stock:</p>
+        @else
+            <p>The following {{ $products->count() }} products are running low on stock:</p>
+        @endif
 
-        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <h2 style="margin: 0 0 10px 0; color: #333;">{{ $product->name }}</h2>
-            <p style="margin: 5px 0;"><strong>Current Stock:</strong> <span style="color: #dc3545; font-weight: bold;">{{ $product->stock_quantity }}</span> units</p>
-            <p style="margin: 5px 0;"><strong>Price:</strong> ${{ number_format($product->price, 2) }}</p>
-        </div>
+        @foreach($products as $product)
+            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #dc3545;">
+                <h2 style="margin: 0 0 10px 0; color: #333;">{{ $product->name }}</h2>
+                <p style="margin: 5px 0;"><strong>Current Stock:</strong> <span style="color: #dc3545; font-weight: bold;">{{ $product->stock_quantity }}</span> units</p>
+                <p style="margin: 5px 0;"><strong>Price:</strong> ${{ number_format($product->price, 2) }}</p>
+            </div>
+        @endforeach
 
-        <p style="color: #dc3545; font-weight: bold;">Please restock this product as soon as possible.</p>
+        <p style="color: #dc3545; font-weight: bold;">Please restock {{ $products->count() === 1 ? 'this product' : 'these products' }} as soon as possible.</p>
 
         <p style="margin-top: 30px;">
             Best regards,<br>

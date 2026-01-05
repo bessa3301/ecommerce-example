@@ -2,13 +2,13 @@
 
 namespace App\Mail;
 
-use App\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 
 class LowStockNotification extends Mailable
 {
@@ -18,7 +18,7 @@ class LowStockNotification extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public Product $product
+        public Collection $products
     ) {
         //
     }
@@ -28,8 +28,13 @@ class LowStockNotification extends Mailable
      */
     public function envelope(): Envelope
     {
+        $count = $this->products->count();
+        $subject = $count === 1
+            ? 'Low Stock Alert: ' . $this->products->first()->name
+            : "Low Stock Alert: {$count} Products Running Low";
+
         return new Envelope(
-            subject: 'Low Stock Alert: ' . $this->product->name,
+            subject: $subject,
         );
     }
 
