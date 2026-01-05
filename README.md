@@ -6,6 +6,8 @@ A simple e-commerce demo application built to showcase development skills. This 
 
 This is a **demo application** and is **not intended to be a complete or complex solution**. The focus is on demonstrating clean code, modern development practices, and a working prototype rather than production-ready features.
 
+The user interface has been designed with functionality and usability as primary considerations, prioritizing practical implementation over aesthetic refinement. As such, there is considerable potential for visual and interactive enhancements.
+
 ## Tech Stack
 
 - **Backend**: Laravel 12
@@ -69,6 +71,14 @@ If you prefer using Docker, you can use the provided `docker-compose.yml` and `k
 - Backend API: Laravel 12
 - Frontend: Vue.js with TailwindCSS for styling
 - Frontend dev server: `npm run dev`
+
+## CI/CD
+
+The continuous integration pipeline has been intentionally streamlined to utilize PHPStan for static analysis. While this approach maintains simplicity and focus, alternative tooling options are available, such as those demonstrated in the [phpqa](https://github.com/jakzal/phpqa) public repository, which could be integrated for more comprehensive code quality assurance.
+
+## Media Assets
+
+The video assets incorporated into this project were sourced from non-commercial free stock footage and subsequently converted to the WebP format to optimize performance and ensure efficient delivery.
 
 ## License
 
