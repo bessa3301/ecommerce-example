@@ -2,6 +2,10 @@
 import ApplicationLogo from '@/components/ApplicationLogo.vue';
 import { Link } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
+import { useTranslations } from '@/composables/useTranslations';
+
+const { t } = useTranslations();
 </script>
 
 <template>
@@ -13,14 +17,15 @@ import { Button } from '@/components/ui/button';
                         <ApplicationLogo class="h-7 w-auto fill-current text-blue-400" />
                     </Link>
                     <div class="flex items-center gap-4">
+                        <LanguageSwitcher />
                         <Link :href="route('login')">
                             <Button variant="ghost" size="sm" class="text-slate-300 hover:text-white hover:bg-slate-800">
-                                Sign In
+                                {{ t('common.login') }}
                             </Button>
                         </Link>
                         <Link :href="route('register')">
                             <Button size="sm" class="bg-blue-500 hover:bg-blue-600 text-white">
-                                Get Started
+                                {{ t('common.get_started') }}
                             </Button>
                         </Link>
                     </div>

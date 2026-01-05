@@ -4,6 +4,9 @@ import UserLayout from '@/Layouts/UserLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useTranslations } from '@/composables/useTranslations';
+
+const { t } = useTranslations();
 
 const props = defineProps({
     products: {
@@ -49,10 +52,10 @@ const addToCart = (productId) => {
             <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
                 <div class="mb-12">
                     <h1 class="text-4xl font-bold text-white mb-4">
-                        All Products
+                        {{ t('common.all_products') }}
                     </h1>
                     <p class="text-lg text-slate-400">
-                        Browse our complete collection of laptops and computer supplies
+                        {{ t('common.all_products_subtitle') }}
                     </p>
                 </div>
 
@@ -118,28 +121,28 @@ const addToCart = (productId) => {
                                     Low Stock
                                 </span>
                             </div>
-                            <Button
-                                v-if="$page.props.auth.user"
-                                @click="addToCart(product.id)"
-                                class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white"
-                                :disabled="product.stock_quantity === 0"
-                            >
-                                {{
-                                    product.stock_quantity === 0
-                                        ? 'Out of Stock'
-                                        : 'Add to Cart'
-                                }}
-                            </Button>
-                            <div
-                                v-else
-                                class="mt-4 text-center"
-                            >
-                                <Link :href="route('login')">
-                                    <Button variant="outline" class="w-full border-slate-700 text-slate-300 hover:bg-slate-800">
-                                        Sign in to purchase
-                                    </Button>
-                                </Link>
-                            </div>
+                                <Button
+                                    v-if="$page.props.auth.user"
+                                    @click="addToCart(product.id)"
+                                    class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white"
+                                    :disabled="product.stock_quantity === 0"
+                                >
+                                    {{
+                                        product.stock_quantity === 0
+                                            ? t('common.out_of_stock')
+                                            : t('common.add_to_cart')
+                                    }}
+                                </Button>
+                                <div
+                                    v-else
+                                    class="mt-4 text-center"
+                                >
+                                    <Link :href="route('login')">
+                                        <Button variant="outline" class="w-full border-slate-700 text-slate-300 hover:bg-slate-800">
+                                            {{ t('common.sign_in_to_purchase') }}
+                                        </Button>
+                                    </Link>
+                                </div>
                         </CardContent>
                     </Card>
                 </div>
@@ -149,7 +152,7 @@ const addToCart = (productId) => {
                     class="border-slate-800 bg-slate-900 mt-16"
                 >
                     <CardContent class="p-12 text-center">
-                        <p class="text-slate-400">No products available.</p>
+                        <p class="text-slate-400">{{ t('common.no_products') }}</p>
                     </CardContent>
                 </Card>
             </div>

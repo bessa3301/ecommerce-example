@@ -3,6 +3,9 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import UserLayout from '@/Layouts/UserLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useTranslations } from '@/composables/useTranslations';
+
+const { t } = useTranslations();
 
 const props = defineProps({
     cart: {
@@ -49,7 +52,7 @@ const removeItem = (itemId) => {
 
     <UserLayout>
         <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-            <h1 class="mb-8 text-3xl font-bold text-white">Shopping Cart</h1>
+            <h1 class="mb-8 text-3xl font-bold text-white">{{ t('common.shopping_cart') }}</h1>
             <Card v-if="cart.items.length > 0" class="border-slate-800 bg-slate-900">
                 <CardContent class="p-6">
                         <div class="space-y-6">
@@ -63,7 +66,7 @@ const removeItem = (itemId) => {
                                         {{ item.product.name }}
                                     </h3>
                                     <p class="mt-1 text-sm text-slate-400">
-                                        {{ formatPrice(item.product.price) }} each
+                                        {{ formatPrice(item.product.price) }} {{ t('common.each') }}
                                     </p>
                                     <p
                                         v-if="item.product.stock_quantity < 10"
@@ -109,7 +112,7 @@ const removeItem = (itemId) => {
                                         size="sm"
                                         class="bg-red-600 text-white hover:bg-red-700"
                                     >
-                                        Remove
+                                        {{ t('common.remove') }}
                                     </Button>
                                 </div>
                             </div>
@@ -117,16 +120,16 @@ const removeItem = (itemId) => {
 
                         <div class="mt-8 border-t border-slate-800 pt-6 space-y-2">
                             <div class="flex items-center justify-between text-slate-300">
-                                <span>Subtotal:</span>
+                                <span>{{ t('common.subtotal') }}:</span>
                                 <span>{{ formatPrice(cart.subtotal) }}</span>
                             </div>
                             <div class="flex items-center justify-between text-slate-300">
-                                <span>VAT:</span>
+                                <span>{{ t('common.vat') }}:</span>
                                 <span>{{ formatPrice(cart.vat_amount) }}</span>
                             </div>
                             <div class="flex items-center justify-between pt-2 border-t border-slate-800">
                                 <span class="text-xl font-semibold text-white">
-                                    Total:
+                                    {{ t('common.total') }}:
                                 </span>
                                 <span class="text-2xl font-bold text-blue-400">
                                     {{ formatPrice(cart.total) }}
@@ -136,10 +139,10 @@ const removeItem = (itemId) => {
 
                         <div class="mt-6 flex gap-4">
                             <Link :href="route('products.index')">
-                                <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">Continue Shopping</Button>
+                                <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800">{{ t('common.continue_shopping') }}</Button>
                             </Link>
                             <Link :href="route('checkout.index')">
-                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">Proceed to Checkout</Button>
+                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">{{ t('common.proceed_to_checkout') }}</Button>
                             </Link>
                         </div>
                     </CardContent>
@@ -161,14 +164,14 @@ const removeItem = (itemId) => {
                             />
                         </svg>
                         <h3 class="mt-4 text-lg font-semibold text-white">
-                            Your cart is empty
+                            {{ t('common.your_cart_is_empty') }}
                         </h3>
                         <p class="mt-2 text-sm text-slate-400">
-                            Start shopping to add items to your cart.
+                            {{ t('common.start_shopping') }}
                         </p>
                         <div class="mt-6">
                             <Link :href="route('products.index')">
-                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">Browse Products</Button>
+                                <Button class="bg-blue-500 hover:bg-blue-600 text-white">{{ t('common.browse_products') }}</Button>
                             </Link>
                         </div>
                     </CardContent>

@@ -13,6 +13,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { useViewMode } from '@/composables/useViewMode';
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
+import { useTranslations } from '@/composables/useTranslations';
+
+const { t } = useTranslations();
 
 const showingNavigationDropdown = ref(false);
 const { showAdminView, isAdmin, switchToAdminView } = useViewMode();
@@ -50,7 +54,7 @@ const formatPrice = (price) => {
                                 )"
                             >
                                 <Link :href="route('products.index')">
-                                    Products
+                                    {{ t('common.products') }}
                                 </Link>
                             </Button>
                             <Button
@@ -63,7 +67,7 @@ const formatPrice = (price) => {
                                 )"
                             >
                                 <Link :href="route('cart.index')">
-                                    Cart
+                                    {{ t('common.cart') }}
                                 </Link>
                             </Button>
                             <template v-if="isAdmin">
@@ -128,6 +132,8 @@ const formatPrice = (price) => {
                     </div>
 
                     <div class="flex items-center gap-4">
+                        <LanguageSwitcher />
+                        
                         <Link
                             :href="route('cart.index')"
                             class="relative flex items-center gap-2 rounded-md px-3 py-2 text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
@@ -183,7 +189,7 @@ const formatPrice = (price) => {
                             <DropdownMenuContent align="end" class="bg-slate-800 border-slate-700">
                                 <DropdownMenuItem as-child class="text-slate-300 hover:text-white hover:bg-slate-700">
                                     <Link :href="route('profile.edit')" class="w-full">
-                                        Profile
+                                        {{ t('common.profile') }}
                                     </Link>
                                 </DropdownMenuItem>
                                 <template v-if="isAdmin">
@@ -210,7 +216,7 @@ const formatPrice = (price) => {
                                 </template>
                                 <DropdownMenuSeparator class="bg-slate-700" />
                                 <DropdownMenuItem @click="handleLogout" class="text-slate-300 hover:text-white hover:bg-slate-700">
-                                    Log Out
+                                    {{ t('common.logout') }}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

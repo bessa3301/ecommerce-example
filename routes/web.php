@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::get('/locale/{locale}', [LocaleController::class, 'setLocale'])->name('locale.set');
 
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
 

@@ -5,6 +5,9 @@ import UserLayout from '@/Layouts/UserLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useTranslations } from '@/composables/useTranslations';
+
+const { t } = useTranslations();
 
 const props = defineProps({
     products: {
@@ -60,25 +63,25 @@ const moreProducts = computed(() => {
                 <div class="relative mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8 sm:py-40 lg:py-56">
                     <div class="text-center">
                         <h1 class="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-                            Premium Laptops & Computer Supplies
+                            {{ t('common.banner_title') }}
                         </h1>
                         <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-                            Your one-stop marketplace for laptops, accessories, and all your computing needs. Find the perfect tech solution for work, gaming, or creativity.
+                            {{ t('common.banner_subtitle') }}
                         </p>
                         <div class="mt-10 flex items-center justify-center gap-x-6">
                             <Link :href="route('register')" v-if="!$page.props.auth.user">
                                 <Button size="lg" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-6 text-lg">
-                                    Get Started
+                                    {{ t('common.get_started') }}
                                 </Button>
                             </Link>
                             <Link :href="route('login')" v-if="!$page.props.auth.user">
                                 <Button variant="outline" size="lg" class="border-slate-700 text-slate-300 hover:bg-slate-800 px-8 py-6 text-lg">
-                                    Sign In
+                                    {{ t('common.login') }}
                                 </Button>
                             </Link>
                             <Link :href="route('products.all')" v-else>
                                 <Button size="lg" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-6 text-lg">
-                                    Shop Now
+                                    {{ t('common.shop_now') }}
                                 </Button>
                             </Link>
                         </div>
@@ -90,10 +93,10 @@ const moreProducts = computed(() => {
                 <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                     <div class="text-center mb-12">
                         <h2 class="text-4xl font-bold text-white">
-                            Featured Products
+                            {{ t('common.featured_products') }}
                         </h2>
                         <p class="mt-4 text-lg text-slate-400">
-                            Handpicked selections from our collection
+                            {{ t('common.featured_products_subtitle') }}
                         </p>
                     </div>
                     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -166,8 +169,8 @@ const moreProducts = computed(() => {
                                 >
                                     {{
                                         product.stock_quantity === 0
-                                            ? 'Out of Stock'
-                                            : 'Add to Cart'
+                                            ? t('common.out_of_stock')
+                                            : t('common.add_to_cart')
                                     }}
                                 </Button>
                                 <div
@@ -176,7 +179,7 @@ const moreProducts = computed(() => {
                                 >
                                     <Link :href="route('login')">
                                         <Button variant="outline" class="w-full border-slate-700 text-slate-300 hover:bg-slate-800">
-                                            Sign in to purchase
+                                            {{ t('common.sign_in_to_purchase') }}
                                         </Button>
                                     </Link>
                                 </div>
@@ -223,10 +226,10 @@ const moreProducts = computed(() => {
                 <div v-if="moreProducts.length > 0" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                     <div class="text-center mb-12">
                         <h2 class="text-4xl font-bold text-white">
-                            More Products
+                            {{ t('common.more_products') }}
                         </h2>
                         <p class="mt-4 text-lg text-slate-400">
-                            Discover our complete collection
+                            {{ t('common.more_products_subtitle') }}
                         </p>
                     </div>
                     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -299,8 +302,8 @@ const moreProducts = computed(() => {
                                 >
                                     {{
                                         product.stock_quantity === 0
-                                            ? 'Out of Stock'
-                                            : 'Add to Cart'
+                                            ? t('common.out_of_stock')
+                                            : t('common.add_to_cart')
                                     }}
                                 </Button>
                                 <div
@@ -309,7 +312,7 @@ const moreProducts = computed(() => {
                                 >
                                     <Link :href="route('login')">
                                         <Button variant="outline" class="w-full border-slate-700 text-slate-300 hover:bg-slate-800">
-                                            Sign in to purchase
+                                            {{ t('common.sign_in_to_purchase') }}
                                         </Button>
                                     </Link>
                                 </div>
@@ -323,9 +326,9 @@ const moreProducts = computed(() => {
                 v-else
                 class="mx-auto max-w-7xl border-slate-800 bg-slate-900 mt-16"
             >
-                <CardContent class="p-12 text-center">
-                    <p class="text-slate-400">No products available.</p>
-                </CardContent>
+                    <CardContent class="p-12 text-center">
+                        <p class="text-slate-400">{{ t('common.no_products') }}</p>
+                    </CardContent>
             </Card>
 
             <footer class="bg-slate-900 border-t border-slate-800 mt-20">

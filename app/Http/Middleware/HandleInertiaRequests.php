@@ -37,6 +37,10 @@ class HandleInertiaRequests extends Middleware
                 ] : null,
             ],
             'cart' => $cart,
+            'locale' => app()->getLocale(),
+            'translations' => [
+                'common' => trans('common'),
+            ],
         ];
     }
 }
