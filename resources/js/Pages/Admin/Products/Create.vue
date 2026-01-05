@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 const form = useForm({
     name: '',
     price: '',
+    vat_rate: '20',
     stock_quantity: '',
     image: null,
 });
@@ -54,7 +55,7 @@ const submit = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="price">Price</Label>
+                                <Label for="price">Price (excl. VAT)</Label>
                                 <Input
                                     id="price"
                                     v-model="form.price"
@@ -68,6 +69,25 @@ const submit = () => {
                                     class="text-sm text-red-400"
                                 >
                                     {{ form.errors.price }}
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <Label for="vat_rate">VAT Rate (%)</Label>
+                                <Input
+                                    id="vat_rate"
+                                    v-model="form.vat_rate"
+                                    type="number"
+                                    step="0.01"
+                                    min="0"
+                                    max="100"
+                                    required
+                                />
+                                <div
+                                    v-if="form.errors.vat_rate"
+                                    class="text-sm text-red-400"
+                                >
+                                    {{ form.errors.vat_rate }}
                                 </div>
                             </div>
 

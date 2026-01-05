@@ -115,8 +115,16 @@ const removeItem = (itemId) => {
                             </div>
                         </div>
 
-                        <div class="mt-8 border-t border-slate-800 pt-6">
-                            <div class="flex items-center justify-between">
+                        <div class="mt-8 border-t border-slate-800 pt-6 space-y-2">
+                            <div class="flex items-center justify-between text-slate-300">
+                                <span>Subtotal:</span>
+                                <span>{{ formatPrice(cart.subtotal) }}</span>
+                            </div>
+                            <div class="flex items-center justify-between text-slate-300">
+                                <span>VAT:</span>
+                                <span>{{ formatPrice(cart.vat_amount) }}</span>
+                            </div>
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-800">
                                 <span class="text-xl font-semibold text-white">
                                     Total:
                                 </span>

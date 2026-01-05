@@ -29,6 +29,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
+            'vat_rate' => 'required|numeric|min:0|max:100',
             'stock_quantity' => 'required|integer|min:0',
             'image' => 'nullable|image|max:2048',
         ]);
@@ -55,6 +56,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
+            'vat_rate' => 'required|numeric|min:0|max:100',
             'stock_quantity' => 'required|integer|min:0',
             'image' => 'nullable|image|max:2048',
         ]);

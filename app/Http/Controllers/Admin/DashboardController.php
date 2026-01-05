@@ -16,6 +16,8 @@ class DashboardController extends Controller
     public function index()
     {
         $totalRevenue = Order::sum('total');
+        $totalVat = Order::sum('vat_amount');
+        $totalProfit = $totalRevenue - $totalVat;
         $totalOrders = Order::count();
         $totalCustomers = User::where('is_admin', false)->count();
         $totalProducts = Product::count();
@@ -78,6 +80,8 @@ class DashboardController extends Controller
         return Inertia::render('Admin/Dashboard', [
             'stats' => [
                 'total_revenue' => (float) $totalRevenue,
+                'total_vat' => (float) $totalVat,
+                'total_profit' => (float) $totalProfit,
                 'total_orders' => (int) $totalOrders,
                 'total_customers' => (int) $totalCustomers,
                 'total_products' => (int) $totalProducts,

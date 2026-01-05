@@ -234,15 +234,26 @@ const submit = () => {
                                     </div>
                                 </div>
 
-                                <div class="border-t border-slate-800"></div>
+                                <div class="border-t border-slate-800 pt-4 space-y-2">
+                                    <div class="flex items-center justify-between text-slate-300">
+                                        <span>Subtotal:</span>
+                                        <span>{{ formatPrice(cart.subtotal) }}</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-slate-300">
+                                        <span>VAT:</span>
+                                        <span>{{ formatPrice(cart.vat_amount) }}</span>
+                                    </div>
+                                </div>
 
-                                <div class="flex items-center justify-between">
-                                    <span class="text-lg font-semibold text-white">
-                                        Total:
-                                    </span>
-                                    <span class="text-xl font-bold text-blue-400">
-                                        {{ formatPrice(cart.total) }}
-                                    </span>
+                                <div class="border-t border-slate-800 pt-4">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-lg font-semibold text-white">
+                                            Total:
+                                        </span>
+                                        <span class="text-xl font-bold text-blue-400">
+                                            {{ formatPrice(cart.total) }}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 

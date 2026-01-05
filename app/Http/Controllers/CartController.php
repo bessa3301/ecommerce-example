@@ -20,25 +20,35 @@ class CartController extends Controller
         $cart->load('items.product');
 
         $items = $cart->items->map(function ($item) {
+            $subtotal = $item->quantity * $item->product->price;
+            $vatRate = $item->product->vat_rate ?? 0;
+            $vatAmount = $subtotal * ($vatRate / 100);
+            
             return [
                 'id' => $item->id,
                 'product' => [
                     'id' => $item->product->id,
                     'name' => $item->product->name,
                     'price' => $item->product->price,
+                    'vat_rate' => $vatRate,
                     'stock_quantity' => $item->product->stock_quantity,
                 ],
                 'quantity' => $item->quantity,
-                'subtotal' => $item->quantity * $item->product->price,
+                'subtotal' => $subtotal,
+                'vat_amount' => $vatAmount,
             ];
         });
 
-        $total = $items->sum('subtotal');
+        $subtotal = $items->sum('subtotal');
+        $vatAmount = $items->sum('vat_amount');
+        $total = $subtotal + $vatAmount;
 
         return Inertia::render('Cart/Index', [
             'cart' => [
                 'id' => $cart->id,
                 'items' => $items,
+                'subtotal' => $subtotal,
+                'vat_amount' => $vatAmount,
                 'total' => $total,
             ],
         ]);
@@ -124,25 +134,35 @@ class CartController extends Controller
         }
 
         $items = $cart->items->map(function ($item) {
+            $subtotal = $item->quantity * $item->product->price;
+            $vatRate = $item->product->vat_rate ?? 0;
+            $vatAmount = $subtotal * ($vatRate / 100);
+            
             return [
                 'id' => $item->id,
                 'product' => [
                     'id' => $item->product->id,
                     'name' => $item->product->name,
                     'price' => $item->product->price,
+                    'vat_rate' => $vatRate,
                     'stock_quantity' => $item->product->stock_quantity,
                 ],
                 'quantity' => $item->quantity,
-                'subtotal' => $item->quantity * $item->product->price,
+                'subtotal' => $subtotal,
+                'vat_amount' => $vatAmount,
             ];
         });
 
-        $total = $items->sum('subtotal');
+        $subtotal = $items->sum('subtotal');
+        $vatAmount = $items->sum('vat_amount');
+        $total = $subtotal + $vatAmount;
 
         return Inertia::render('Checkout/Index', [
             'cart' => [
                 'id' => $cart->id,
                 'items' => $items,
+                'subtotal' => $subtotal,
+                'vat_amount' => $vatAmount,
                 'total' => $total,
             ],
         ]);
@@ -168,9 +188,26 @@ class CartController extends Controller
         }
 
         DB::transaction(function () use ($cart) {
+            $items = $cart->items->map(function ($cartItem) {
+                $subtotal = $cartItem->quantity * $cartItem->product->price;
+                $vatRate = $cartItem->product->vat_rate ?? 0;
+                $vatAmount = $subtotal * ($vatRate / 100);
+                
+                return [
+                    'subtotal' => $subtotal,
+                    'vat_amount' => $vatAmount,
+                ];
+            });
+            
+            $subtotal = $items->sum('subtotal');
+            $vatAmount = $items->sum('vat_amount');
+            $total = $subtotal + $vatAmount;
+            
             $order = Order::create([
                 'user_id' => auth()->id(),
-                'total' => $cart->total,
+                'subtotal' => $subtotal,
+                'vat_amount' => $vatAmount,
+                'total' => $total,
             ]);
 
             foreach ($cart->items as $cartItem) {
