@@ -311,8 +311,22 @@ const chartOptions = {
 
             </div>
 
+            <Card class="mb-8 border-slate-800 bg-slate-900">
+                <CardContent>
+                    <h3 class="mb-4 text-lg font-semibold text-white">
+                        Sales Overview (Last 7 Days)
+                    </h3>
+                    <div v-if="sales_chart_data.length > 0" class="h-80">
+                        <Line :data="chartData" :options="chartOptions" />
+                    </div>
+                    <p v-else class="text-sm text-slate-400">
+                        No sales data available for the last 7 days.
+                    </p>
+                </CardContent>
+            </Card>
+
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <Card class="border-slate-800 bg-slate-900">
+                <Card class="border-slate-800 bg-slate-900 py-4">
                     <CardContent>
                         <h3 class="mb-4 text-lg font-semibold text-white">
                             Recent Orders
@@ -345,7 +359,7 @@ const chartOptions = {
                     </CardContent>
                 </Card>
 
-                <Card class="border-slate-800 bg-slate-900">
+                <Card class="border-slate-800 bg-slate-900 py-4">
                     <CardContent>
                         <h3 class="mb-4 text-lg font-semibold text-white">
                             Top Selling Products
@@ -375,20 +389,6 @@ const chartOptions = {
                     </CardContent>
                 </Card>
             </div>
-
-            <Card class="mt-6 border-slate-800 bg-slate-900">
-                <CardContent>
-                    <h3 class="mb-4 text-lg font-semibold text-white">
-                        Sales Overview (Last 7 Days)
-                    </h3>
-                    <div v-if="sales_chart_data.length > 0" class="h-80">
-                        <Line :data="chartData" :options="chartOptions" />
-                    </div>
-                    <p v-else class="text-sm text-slate-400">
-                        No sales data available for the last 7 days.
-                    </p>
-                </CardContent>
-            </Card>
 
             <Card class="mt-6 border-slate-800 bg-slate-900">
                 <CardContent>
