@@ -23,7 +23,9 @@ const submit = () => {
     <GuestLayout>
         <Head title="Register" />
 
-        <form @submit.prevent="submit" class="space-y-4">
+        <div class="flex min-h-[calc(100vh-3rem)] flex-col items-center justify-center pt-6 sm:pt-0">
+            <div class="w-full overflow-hidden border border-slate-800 bg-slate-900 px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
+                <form @submit.prevent="submit" class="space-y-4">
             <div class="space-y-2">
                 <Label for="name">Name</Label>
                 <Input
@@ -97,6 +99,8 @@ const submit = () => {
                     Register
                 </Button>
             </div>
-        </form>
+                </form>
+            </div>
+        </div>
     </GuestLayout>
 </template>

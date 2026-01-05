@@ -25,21 +25,23 @@ const verificationLinkSent = computed(
     <GuestLayout>
         <Head title="Email Verification" />
 
-        <div class="mb-4 text-sm text-slate-400">
-            Thanks for signing up! Before getting started, could you verify your
-            email address by clicking on the link we just emailed to you? If you
-            didn't receive the email, we will gladly send you another.
-        </div>
+        <div class="flex min-h-[calc(100vh-3rem)] flex-col items-center justify-center pt-6 sm:pt-0">
+            <div class="w-full overflow-hidden border border-slate-800 bg-slate-900 px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
+                <div class="mb-4 text-sm text-slate-400">
+                    Thanks for signing up! Before getting started, could you verify your
+                    email address by clicking on the link we just emailed to you? If you
+                    didn't receive the email, we will gladly send you another.
+                </div>
 
-        <div
-            class="mb-4 text-sm font-medium text-green-400"
-            v-if="verificationLinkSent"
-        >
-            A new verification link has been sent to the email address you
-            provided during registration.
-        </div>
+                <div
+                    class="mb-4 text-sm font-medium text-green-400"
+                    v-if="verificationLinkSent"
+                >
+                    A new verification link has been sent to the email address you
+                    provided during registration.
+                </div>
 
-        <form @submit.prevent="submit">
+                <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
                 <Button
                     type="submit"
@@ -57,6 +59,8 @@ const verificationLinkSent = computed(
                     >Log Out</Link
                 >
             </div>
-        </form>
+                </form>
+            </div>
+        </div>
     </GuestLayout>
 </template>

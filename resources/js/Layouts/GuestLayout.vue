@@ -28,12 +28,8 @@ import { Button } from '@/components/ui/button';
             </div>
         </nav>
 
-        <div class="flex min-h-[calc(100vh-3rem)] flex-col items-center pt-6 sm:justify-center sm:pt-0">
-            <div
-                class="mt-6 w-full overflow-hidden border border-slate-800 bg-slate-900 px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg"
-            >
-                <slot />
-            </div>
-        </div>
+        <main class="min-h-[calc(100vh-3rem)]">
+            <slot />
+        </main>
     </div>
 </template>
