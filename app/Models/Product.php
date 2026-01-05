@@ -13,12 +13,14 @@ class Product extends Model
     protected $fillable = [
         'name',
         'price',
+        'vat_rate',
         'stock_quantity',
         'image',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
+        'vat_rate' => 'decimal:2',
     ];
 
     public function cartItems(): HasMany

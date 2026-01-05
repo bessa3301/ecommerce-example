@@ -13,10 +13,14 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'subtotal',
+        'vat_amount',
         'total',
     ];
 
     protected $casts = [
+        'subtotal' => 'decimal:2',
+        'vat_amount' => 'decimal:2',
         'total' => 'decimal:2',
     ];
 
